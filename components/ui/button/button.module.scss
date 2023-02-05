@@ -1,0 +1,30 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-s) var(--spacing-xl);
+  border-radius: var(--spacing-xs);
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.75;
+  }
+}
+
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: rgba(var(--color-positive), 1);
+  text-transform: none;
+  padding-right: var(--spacing-s);
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

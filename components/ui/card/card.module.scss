@@ -1,0 +1,20 @@
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+.borderRadius {
+  border-radius: var(--radius-m);
+}
+
+.padding {
+  padding: var(--spacing-m);
+}
+
+.boxShadow {
+  box-shadow: var(--shadow);
+}
+
+.overflow {
+  overflow: inherit;
+}
