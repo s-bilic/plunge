@@ -5,7 +5,7 @@ import styles from "./content.module.scss";
 const cx = classNames.bind(styles);
 
 interface IProps {
-  text: string;
+  text?: string;
   color?: string;
   size?: string;
   inline?: boolean;

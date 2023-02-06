@@ -1,0 +1,11 @@
+.storeForm {
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--spacing-m);
+}
+
+.tile {
+  width: 205px;
+  height: auto;
+  padding: var(--spacing-m);
+}

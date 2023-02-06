@@ -1,0 +1,22 @@
+.store {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: var(--spacing-m);
+  width: 140px;
+  height: 140px;
+}
+
+.index {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(var(--color-energized), 0.5);
+  padding: 3px var(--spacing-m);
+  border-bottom-left-radius: var(--radius-m);
+}
+
+.wrapper {
+  padding-top: var(--spacing-l);
+}

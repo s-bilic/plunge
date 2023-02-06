@@ -2,7 +2,6 @@ import React from "react";
 import { ReactSVG } from "react-svg";
 import classNames from "classnames/bind";
 import styles from "./icon.module.scss";
-import PropTypes from "prop-types";
 
 const cx = classNames.bind(styles);
 

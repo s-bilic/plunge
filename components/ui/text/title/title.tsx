@@ -5,7 +5,7 @@ import styles from "./title.module.scss";
 const cx = classNames.bind(styles);
 
 interface IProps {
-  tag: React.ElementType;
+  tag?: React.ElementType;
   text: string;
   color?: string;
   className?: string;

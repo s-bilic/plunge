@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./button.module.scss";
+import styles from "./badge.module.scss";
 import classNames from "classnames/bind";
 import { Content } from "@ui";
 import { Icon } from "@helper";
@@ -16,13 +16,14 @@ interface IProps {
   outline?: boolean;
   boxShadow?: boolean;
   disabled?: boolean;
+  active?: boolean;
   icon?: React.ComponentProps<typeof Icon>;
   className?: string;
 }
 
-const Button = ({
+const Badge = ({
   text,
-  size = "m",
+  size = "xxs",
   color = "positive",
   textColor = "light",
   onClick = () => null,
@@ -30,14 +31,16 @@ const Button = ({
   outline = false,
   boxShadow = false,
   disabled = false,
+  active = false,
   icon,
   className,
 }: IProps) => {
   const classes = cx(
     {
-      button: true,
+      badge: true,
       link,
       disabled,
+      active,
       outline,
       boxShadow,
       icon,
@@ -53,4 +56,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default Badge;
