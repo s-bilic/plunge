@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-xs) var(--spacing-s);
+  padding: var(--spacing-s);
   border-radius: var(--spacing-xs);
   border: none;
   margin-right: var(--spacing-xs);
@@ -43,5 +43,5 @@
 }
 
 .active {
-  border: solid 1px rgba(var(--color-positive), 1);
+  border: solid 2px rgba(var(--color-energized), 1);
 }

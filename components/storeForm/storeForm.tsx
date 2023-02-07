@@ -9,12 +9,14 @@ interface IProps {
   className?: string;
   tile?: React.ComponentProps<typeof Tile>;
   types: string[];
-  onClick?: boolean;
+  save?: React.MouseEventHandler<HTMLButtonElement>;
+  remove?: React.MouseEventHandler<HTMLButtonElement>;
+  onChange?: any;
 }
 
-const StoreForm = ({ className, types, onClick }: IProps) => {
+const StoreForm = ({ className, types, save, remove, onChange }: IProps) => {
   const [count, setCount] = useState(0);
-  const [active, setActive] = useState("");
+  const [type, setType] = useState("");
   const classes = cx(
     {
       storeForm: true,
@@ -24,9 +26,15 @@ const StoreForm = ({ className, types, onClick }: IProps) => {
 
   const selectBadge = (e: any) => {
     if (e) {
-      setActive(e?.target?.innerText);
+      setType(e?.target?.innerText);
     }
   };
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(type);
+    }
+  });
 
   return (
     <div className={classes}>
@@ -37,17 +45,26 @@ const StoreForm = ({ className, types, onClick }: IProps) => {
               key={index}
               text={item}
               textColor={"stable-700"}
-              active={active === item}
+              active={type === item}
               onClick={selectBadge}
               outline
             />
           ))}
       </Tile>
-      <Button
-        color={"transparent"}
-        icon={{ name: "checkmark", size: "xs" }}
-        onClick={onClick}
-      />
+      <div className={styles.actions}>
+        <Button
+          className={styles.remove}
+          color={"transparent"}
+          icon={{ name: "cross-circle", size: "xs", color: "a" }}
+          onClick={remove}
+        />
+        <Button
+          className={styles.save}
+          color={"transparent"}
+          icon={{ name: "checkmark-circle", size: "xs" }}
+          onClick={save}
+        />
+      </div>
     </div>
   );
 };

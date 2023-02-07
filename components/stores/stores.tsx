@@ -15,6 +15,7 @@ interface IProps {
 const Stores = ({ className, items, types }: IProps) => {
   const [data, setData] = useState(items);
   const [active, setActive] = useState(false);
+  const [type, setType] = useState("");
   const classes = cx(
     {
       stores: true,
@@ -27,13 +28,15 @@ const Stores = ({ className, items, types }: IProps) => {
       ...prev,
       {
         title: {
-          text: "Cafe",
+          text: type,
         },
       },
     ]);
   };
 
-  const toggleForm = () => {
+  console.log(type);
+
+  const handleForm = () => {
     setActive(!active);
 
     if (active) {
@@ -56,14 +59,21 @@ const Stores = ({ className, items, types }: IProps) => {
             <>
               {!active && (
                 <Button
-                  onClick={toggleForm}
+                  onClick={handleForm}
                   className={styles.button}
                   icon={{ name: "plus", size: "xs" }}
                   color={"light"}
                   boxShadow
                 />
               )}
-              {active && <StoreForm types={types} onClick={toggleForm} />}
+              {active && (
+                <StoreForm
+                  types={types}
+                  save={handleForm}
+                  remove={() => setActive(false)}
+                  onChange={(e: any) => setType(e)}
+                />
+              )}
             </>
           )}
         </React.Fragment>

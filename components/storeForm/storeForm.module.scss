@@ -9,3 +9,13 @@
   height: auto;
   padding: var(--spacing-m);
 }
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.save,
+.remove {
+  padding: var(--spacing-s) var(--spacing-xs);
+}

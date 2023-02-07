@@ -52,7 +52,14 @@
 
 .icon-light {
   path {
-    stroke: white;
+    stroke: rgba(var(--color-light));
     stroke-width: 20px;
+  }
+}
+
+.icon-balanced {
+  svg {
+    color: rgba(var(--color-balanced)); ;
+    stroke: rgba(var(--color-balanced));
   }
 }
