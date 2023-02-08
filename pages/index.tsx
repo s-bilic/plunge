@@ -2,7 +2,7 @@ import styles from "../styles/home.module.scss";
 
 import { Title, Content, Button, Card, Tile } from "@ui";
 import { Divider, Icon } from "@helper";
-import { Stores } from "@components";
+import { Stores, Payment } from "@components";
 import { storesData, storeTypes } from "@utils";
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
       <Divider height={100} />
       <Stores items={storesData} types={storeTypes} />
       <Divider height={100} />
+      <Payment />
     </div>
   );
 }
