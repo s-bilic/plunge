@@ -8,13 +8,14 @@ const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
+  href?: string;
   index?: string;
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
 }
 
-const Store = ({ className, index, title, content, icon }: IProps) => {
+const Store = ({ className, href, index, title, content, icon }: IProps) => {
   const classes = cx(
     {
       store: true,
@@ -23,7 +24,7 @@ const Store = ({ className, index, title, content, icon }: IProps) => {
   );
 
   return (
-    <Tile className={classes} boxShadow borderRadius>
+    <Tile href={href} className={classes} boxShadow borderRadius>
       {icon && <Icon size={"xs"} {...icon} />}
       {index && (
         <Content

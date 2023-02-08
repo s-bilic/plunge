@@ -42,9 +42,7 @@ const Tile = ({
 
   return href ? (
     <Link href={href}>
-      <a>
-        <CustomComponent />
-      </a>
+      <CustomComponent />
     </Link>
   ) : (
     <CustomComponent />

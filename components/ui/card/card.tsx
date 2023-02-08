@@ -42,9 +42,7 @@ const Card = ({
 
   return href ? (
     <Link href={href}>
-      <a>
-        <CustomComponent />
-      </a>
+      <CustomComponent />
     </Link>
   ) : (
     <CustomComponent />

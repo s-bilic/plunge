@@ -50,6 +50,7 @@ const Stores = ({ className, items, types }: IProps) => {
         <React.Fragment key={index}>
           <Store
             className={styles.store}
+            href={`store/${type.toLowerCase()}`}
             index={`${index + 1}`}
             content={{ text: `${5} products` }}
             icon={{ name: "store" }}
