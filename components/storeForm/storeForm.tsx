@@ -10,11 +10,11 @@ interface IProps {
   tile?: React.ComponentProps<typeof Tile>;
   types: string[];
   save?: React.MouseEventHandler<HTMLButtonElement>;
-  remove?: React.MouseEventHandler<HTMLButtonElement>;
+  cancel?: React.MouseEventHandler<HTMLButtonElement>;
   onChange?: any;
 }
 
-const StoreForm = ({ className, types, save, remove, onChange }: IProps) => {
+const StoreForm = ({ className, types, save, cancel, onChange }: IProps) => {
   const [count, setCount] = useState(0);
   const [type, setType] = useState("");
   const classes = cx(
@@ -38,7 +38,32 @@ const StoreForm = ({ className, types, save, remove, onChange }: IProps) => {
 
   return (
     <div className={classes}>
-      <Tile className={styles.tile} boxShadow borderRadius>
+      <Tile
+        className={styles.tile}
+        boxShadow
+        borderRadius
+        header={{
+          content: {
+            text: "what kind of store?",
+          },
+        }}
+        footer={{
+          buttons: [
+            {
+              text: "Continue",
+              fill: true,
+              onClick: save,
+            },
+            {
+              text: "Cancel",
+              fill: true,
+              color: "transparent",
+              textColor: "dark",
+              onClick: cancel,
+            },
+          ],
+        }}
+      >
         {count === 0 &&
           types?.map((item, index) => (
             <Badge
@@ -51,20 +76,6 @@ const StoreForm = ({ className, types, save, remove, onChange }: IProps) => {
             />
           ))}
       </Tile>
-      <div className={styles.actions}>
-        <Button
-          className={styles.remove}
-          color={"transparent"}
-          icon={{ name: "cross-circle", size: "xs", color: "a" }}
-          onClick={remove}
-        />
-        <Button
-          className={styles.save}
-          color={"transparent"}
-          icon={{ name: "checkmark-circle", size: "xs" }}
-          onClick={save}
-        />
-      </div>
     </div>
   );
 };

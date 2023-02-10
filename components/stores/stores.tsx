@@ -71,7 +71,7 @@ const Stores = ({ className, items, types }: IProps) => {
                 <StoreForm
                   types={types}
                   save={handleForm}
-                  remove={() => setActive(false)}
+                  cancel={() => setActive(false)}
                   onChange={(e: any) => setType(e)}
                 />
               )}

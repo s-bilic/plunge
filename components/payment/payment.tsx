@@ -6,9 +6,8 @@ import { encodeURL, createQR } from "@solana/pay";
 import BigNumber from "bignumber.js";
 
 const Payment = () => {
-  const ref = useRef();
+  const ref: any = useRef();
   const wallet = useWallet();
-
   const recipient = new PublicKey(
     "5gGgLjSHQ5Q5Hzz82S6XGJQdu6t9wjmrr81L3VAL1Rpf"
   );

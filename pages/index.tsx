@@ -13,7 +13,6 @@ export default function Home() {
       <Divider height={100} />
       <Stores items={storesData} types={storeTypes} />
       <Divider height={100} />
-      <Payment />
     </div>
   );
 }

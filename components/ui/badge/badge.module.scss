@@ -43,5 +43,5 @@
 }
 
 .active {
-  border: solid 2px rgba(var(--color-energized), 1);
+  box-shadow: 0 0 0 2px rgba(var(--color-energized), 1);
 }

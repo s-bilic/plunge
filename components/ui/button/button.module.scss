@@ -3,11 +3,14 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-s) var(--spacing-xl);
-  border-radius: var(--spacing-m);
+  border-radius: var(--spacing-xs);
   border: none;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 500;
+  margin-left: var(--spacing-xs);
+
+  &:first-child {
+    margin-left: 0;
+  }
 
   &:hover {
     cursor: pointer;
@@ -34,6 +37,16 @@
 
 .icon {
   padding: 0;
+}
+
+.fill {
+  width: 100%;
+  margin-top: var(--spacing-xs);
+  margin-left: 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .disabled {
