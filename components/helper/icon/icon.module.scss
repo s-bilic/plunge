@@ -50,6 +50,12 @@
   }
 }
 
+.icon-xxxxs {
+  svg {
+    width: 12px;
+  }
+}
+
 .icon-light {
   path {
     stroke: rgba(var(--color-light));

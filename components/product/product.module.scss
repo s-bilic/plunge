@@ -1,0 +1,43 @@
+.tile {
+  position: relative;
+  display: flex;
+  width: 140px;
+  height: 140px;
+}
+
+.index {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(var(--color-energized), 0.5);
+  padding: 3px var(--spacing-m);
+  border-bottom-left-radius: var(--radius-m);
+}
+
+.wrapper {
+  padding-top: var(--spacing-l);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.currency {
+  display: flex;
+  align-items: center;
+  padding-top: var(--spacing-xs);
+}
+
+.iconCurrency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--color-light), 1);
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  margin-left: var(--spacing-xs);
+}

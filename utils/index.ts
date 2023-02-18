@@ -1,3 +1,3 @@
-import { storesData, storeTypes } from "./data/data";
+import { storesData, storeTypes, productsData } from "./data/data";
 
-export { storesData, storeTypes };
+export { storesData, storeTypes, productsData };

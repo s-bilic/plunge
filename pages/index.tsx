@@ -2,7 +2,7 @@ import styles from "../styles/home.module.scss";
 
 import { Title, Content, Button, Card, Tile } from "@ui";
 import { Divider, Icon } from "@helper";
-import { Stores, Payment } from "@components";
+import { Stores, Payment, Product } from "@components";
 import { storesData, storeTypes } from "@utils";
 
 export default function Home() {

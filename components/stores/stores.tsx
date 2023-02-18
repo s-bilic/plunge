@@ -49,9 +49,9 @@ const Stores = ({ className, items, types }: IProps) => {
       {data?.map((item, index) => (
         <React.Fragment key={index}>
           <Store
+            index={`${index + 1}`}
             className={styles.store}
             href={`store/${type.toLowerCase()}`}
-            index={`${index + 1}`}
             content={{ text: `${5} products` }}
             icon={{ name: "store" }}
             {...item}
