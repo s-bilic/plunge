@@ -1,0 +1,7 @@
+.item {
+  margin-bottom: var(--spacing-m);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

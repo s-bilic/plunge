@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./productForm.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content, Badge, Button } from "@ui";
+import { Tile, Title, Content, Badge, Button, Form } from "@ui";
 
 const cx = classNames.bind(styles);
 
@@ -36,12 +36,28 @@ const ProductForm = ({ className, types, save, cancel, onChange }: IProps) => {
     }
   });
 
+  const elements = [
+    {
+      id: "0",
+      type: "text",
+      label: "Name",
+    },
+    {
+      id: "1",
+      type: "text",
+      label: "Price",
+    },
+  ];
+
+  // sidebar + input form (name, price, icon) + list of created items
   return (
     <div className={classes}>
       <Tile className={styles.tile} boxShadow borderRadius>
-        <h5>
-          sidebar + input form (name, price, icon) + list of created items
-        </h5>
+        <Form
+          items={elements}
+          button={{ text: "Add Product" }}
+          onChange={(e: any) => console.log(e)}
+        />
       </Tile>
     </div>
   );

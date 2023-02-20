@@ -1,7 +1,7 @@
 .productForm {
   display: flex;
   flex-direction: column;
-  margin-left: var(--spacing-xs);
+  margin-left: var(--spacing-m);
 }
 
 .tile {
@@ -9,12 +9,21 @@
   height: auto;
 }
 
+.field {
+  margin-bottom: var(--spacing-m);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .actions {
   display: flex;
   justify-content: center;
 }
 
-.save,
-.remove {
-  padding: var(--spacing-s) var(--spacing-xs);
-}
+
+// .save,
+// .remove {
+//   padding: var(--spacing-s) var(--spacing-xs);
+// }

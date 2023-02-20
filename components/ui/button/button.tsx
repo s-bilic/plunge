@@ -15,7 +15,7 @@ interface IProps {
   link?: boolean;
   outline?: boolean;
   boxShadow?: boolean;
-  fill?: boolean;
+  grow?: boolean;
   disabled?: boolean;
   icon?: React.ComponentProps<typeof Icon>;
   className?: string;
@@ -30,7 +30,7 @@ const Button = ({
   link = false,
   outline = false,
   boxShadow = false,
-  fill = false,
+  grow = false,
   disabled = false,
   icon,
   className,
@@ -43,7 +43,7 @@ const Button = ({
       outline,
       boxShadow,
       icon,
-      fill,
+      grow,
       [`background-${color}`]: color,
     },
     className

@@ -1,0 +1,20 @@
+.input {
+  width: 100%;
+  font-size: var(--size-s);
+  padding: var(--spacing-m);
+  border: solid 1px rgba(var(--color-stable), 1);
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow-s);
+  transition: 200ms ease-in-out;
+
+  &:active,
+  &:focus {
+    outline: none;   
+    box-shadow: 0 0 0 2px rgba(var(--color-positive), 0.75);
+  }
+}
+
+.label {
+  display: flex;
+  margin-bottom: var(--spacing-s);
+}

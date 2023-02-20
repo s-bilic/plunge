@@ -51,12 +51,12 @@ const StoreForm = ({ className, types, save, cancel, onChange }: IProps) => {
           buttons: [
             {
               text: "Continue",
-              fill: true,
+              grow: true,
               onClick: save,
             },
             {
               text: "Cancel",
-              fill: true,
+              grow: true,
               color: "transparent",
               textColor: "dark",
               onClick: cancel,
