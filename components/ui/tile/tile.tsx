@@ -43,7 +43,7 @@ const Tile = ({
     className
   );
 
-  const CustomComponent = () => (
+  const CustomComponent = (
     <div className={classes}>
       {header && (
         <div className={styles.header}>
@@ -66,13 +66,7 @@ const Tile = ({
     </div>
   );
 
-  return href ? (
-    <Link href={href}>
-      <CustomComponent />
-    </Link>
-  ) : (
-    <CustomComponent />
-  );
+  return href ? <Link href={href}>{CustomComponent}</Link> : CustomComponent;
 };
 
 export default Tile;

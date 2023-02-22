@@ -22,7 +22,6 @@ const Form = ({ className, items, button, onChange }: IProps) => {
   );
 
   const handleData = (e: any, index: any) => {
-    e.preventDefault();
     if (e) {
       setData((prev) =>
         prev.map((item) =>
@@ -42,7 +41,7 @@ const Form = ({ className, items, button, onChange }: IProps) => {
 
   return (
     <div className={classes}>
-      {items?.map((item, index) => (
+      {data?.map((item, index) => (
         <Element
           key={index}
           className={styles.item}

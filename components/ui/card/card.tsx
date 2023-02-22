@@ -38,15 +38,9 @@ const Card = ({
     className
   );
 
-  const CustomComponent = () => <div className={classes}>{children}</div>;
+  const CustomComponent = <div className={classes}>{children}</div>;
 
-  return href ? (
-    <Link href={href}>
-      <CustomComponent />
-    </Link>
-  ) : (
-    <CustomComponent />
-  );
+  return href ? <Link href={href}>{CustomComponent}</Link> : CustomComponent;
 };
 
 export default Card;

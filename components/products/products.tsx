@@ -12,8 +12,8 @@ interface IProps {
 
 const Products = ({ className, items }: IProps) => {
   const [data, setData] = useState(items);
+  const [l, setL] = useState("");
   const [active, setActive] = useState(false);
-
   const classes = cx(
     {
       products: true,
@@ -24,6 +24,11 @@ const Products = ({ className, items }: IProps) => {
   const handleForm = () => {
     setActive(!active);
   };
+  console.log(l);
+
+  const addData = () => {
+    setData((prev) => [...prev, { name: l[0]?.value, price: l[1]?.value }]);
+  };
 
   return (
     <div className={classes}>
@@ -33,7 +38,7 @@ const Products = ({ className, items }: IProps) => {
             href={"/"}
             className={styles.product}
             title={{ text: item?.name }}
-            content={{ text: item?.price.toString() }}
+            content={{ text: item?.price?.toString() }}
             icon={{ name: item?.icon }}
           />
           {data?.length - 1 === index && (
@@ -49,8 +54,11 @@ const Products = ({ className, items }: IProps) => {
               )}
               {active && (
                 <ProductForm
-                  save={handleForm}
                   cancel={() => setActive(false)}
+                  form={{
+                    button: { text: "Add", onClick: addData },
+                    onChange: (e) => setL(e),
+                  }}
                 />
               )}
             </>
