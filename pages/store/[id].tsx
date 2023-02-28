@@ -1,9 +1,9 @@
-import { productsData } from "@utils";
+import { supabase } from "@utils";
 import { Title } from "@ui";
 import { Divider } from "@helper";
 import { Products } from "@components";
 
-export default function StorePage() {
+export default function StorePage({ productsData }) {
   return (
     <div>
       <Divider height={100} />
@@ -16,7 +16,10 @@ export default function StorePage() {
 }
 
 export async function getServerSideProps() {
+  let { data } = await supabase.from("products").select();
   return {
-    props: {},
+    props: {
+      productsData: data,
+    },
   };
 }

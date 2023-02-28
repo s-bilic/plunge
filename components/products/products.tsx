@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./products.module.scss";
 import classNames from "classnames/bind";
 import { Button } from "@ui";
 import { Product, ProductForm } from "@components";
+import { supabase } from "@utils";
 const cx = classNames.bind(styles);
 
 interface IProps {
@@ -11,8 +13,9 @@ interface IProps {
 }
 
 const Products = ({ className, items }: IProps) => {
+  const router = useRouter();
   const [data, setData] = useState(items);
-  const [l, setL] = useState("");
+  const [formData, setFormData] = useState("");
   const [active, setActive] = useState(false);
   const classes = cx(
     {
@@ -24,10 +27,17 @@ const Products = ({ className, items }: IProps) => {
   const handleForm = () => {
     setActive(!active);
   };
-  console.log(l);
 
-  const addData = () => {
-    setData((prev) => [...prev, { name: l[0]?.value, price: l[1]?.value }]);
+  console.log(formData);
+
+  const addData = async () => {
+    await supabase.from("products").insert({
+      product_name: formData[0]?.value,
+      price: formData[1]?.value,
+      store_id: 39,
+    });
+
+    router.refresh();
   };
 
   return (
@@ -37,7 +47,7 @@ const Products = ({ className, items }: IProps) => {
           <Product
             href={"/"}
             className={styles.product}
-            title={{ text: item?.name }}
+            title={{ text: item?.product_name }}
             content={{ text: item?.price?.toString() }}
             icon={{ name: item?.icon }}
           />
@@ -57,7 +67,7 @@ const Products = ({ className, items }: IProps) => {
                   cancel={() => setActive(false)}
                   form={{
                     button: { text: "Add", onClick: addData },
-                    onChange: (e) => setL(e),
+                    onChange: (e) => setFormData(e),
                   }}
                 />
               )}
@@ -65,6 +75,24 @@ const Products = ({ className, items }: IProps) => {
           )}
         </React.Fragment>
       ))}
+      {!active && !data.length && (
+        <Button
+          onClick={handleForm}
+          className={styles.button}
+          icon={{ name: "plus", size: "xs" }}
+          color={"light"}
+          boxShadow
+        />
+      )}
+      {active && !data.length && (
+        <ProductForm
+          cancel={() => setActive(false)}
+          form={{
+            button: { text: "Add", onClick: addData },
+            onChange: (e) => setFormData(e),
+          }}
+        />
+      )}
     </div>
   );
 };

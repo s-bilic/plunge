@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./stores.module.scss";
 import classNames from "classnames/bind";
 import { Button, Badge, Tile } from "@ui";
 import { Store, StoreForm } from "@components";
+import { supabase } from "@utils";
 
 const cx = classNames.bind(styles);
 
@@ -13,6 +15,7 @@ interface IProps {
 }
 
 const Stores = ({ className, items, types }: IProps) => {
+  const router = useRouter();
   const [data, setData] = useState(items);
   const [active, setActive] = useState(false);
   const [type, setType] = useState("");
@@ -23,18 +26,14 @@ const Stores = ({ className, items, types }: IProps) => {
     className
   );
 
-  const addStore = () => {
-    setData((prev) => [
-      ...prev,
-      {
-        title: {
-          text: type,
-        },
-      },
-    ]);
-  };
+  const addStore = async () => {
+    await supabase
+      .from("stores")
+      .insert({ user_id: 2, store_name: type })
+      .select();
 
-  console.log(type);
+    router.refresh();
+  };
 
   const handleForm = () => {
     setActive(!active);
@@ -51,9 +50,10 @@ const Stores = ({ className, items, types }: IProps) => {
           <Store
             index={`${index + 1}`}
             className={styles.store}
-            href={`store/${type.toLowerCase()}`}
+            href={`store/${item?.store_name.toLowerCase()}`}
             content={{ text: `${5} products` }}
-            icon={{ name: "store" }}
+            title={{ text: item?.store_name }}
+            icon={{ name: "juice" }}
             {...item}
           />
           {data.length - 1 === index && (
@@ -79,6 +79,23 @@ const Stores = ({ className, items, types }: IProps) => {
           )}
         </React.Fragment>
       ))}
+      {!active && !data.length && (
+        <Button
+          onClick={handleForm}
+          className={styles.button}
+          icon={{ name: "plus", size: "xs" }}
+          color={"light"}
+          boxShadow
+        />
+      )}
+      {active && !data.length && (
+        <StoreForm
+          types={types}
+          save={handleForm}
+          cancel={() => setActive(false)}
+          onChange={(e: any) => setType(e)}
+        />
+      )}
     </div>
   );
 };

@@ -3,9 +3,10 @@ import styles from "../styles/home.module.scss";
 import { Title, Content, Button, Card, Tile } from "@ui";
 import { Divider, Icon } from "@helper";
 import { Stores, Payment, Product } from "@components";
-import { storesData, storeTypes } from "@utils";
+import { storeTypes, supabase } from "@utils";
 
-export default function Home() {
+const Home = ({ storesData }) => {
+  console.log(storesData);
   return (
     <div className={styles.home}>
       <Divider height={100} />
@@ -15,4 +16,16 @@ export default function Home() {
       <Divider height={100} />
     </div>
   );
+};
+
+export async function getServerSideProps() {
+  let { data } = await supabase.from("stores").select();
+
+  return {
+    props: {
+      storesData: data,
+    },
+  };
 }
+
+export default Home;
