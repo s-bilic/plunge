@@ -17,7 +17,7 @@ const Payment = () => {
   const message = "Jungle Cats store - your order - #001234";
   const memo = "JC#4098";
 
-  console.log(wallet.publicKey?.toBase58());
+  // console.log(wallet.publicKey?.toBase58());
 
   const url = encodeURL({ recipient, amount, reference, label, message, memo });
   useEffect(() => {

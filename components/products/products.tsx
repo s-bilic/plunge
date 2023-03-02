@@ -12,7 +12,7 @@ interface IProps {
   items?: { name: string; price: number; icon: string }[];
 }
 
-const Products = ({ className, items }: IProps) => {
+const Products = ({ className, items, stores, storeId }: IProps) => {
   const router = useRouter();
   const [data, setData] = useState(items);
   const [formData, setFormData] = useState("");
@@ -28,18 +28,15 @@ const Products = ({ className, items }: IProps) => {
     setActive(!active);
   };
 
-  console.log(formData);
-
   const addData = async () => {
     await supabase.from("products").insert({
       product_name: formData[0]?.value,
       price: formData[1]?.value,
-      store_id: 39,
+      store_id: storeId,
     });
 
     router.refresh();
   };
-
   return (
     <div className={classes}>
       {data?.map((item, index) => (
@@ -75,7 +72,7 @@ const Products = ({ className, items }: IProps) => {
           )}
         </React.Fragment>
       ))}
-      {!active && !data.length && (
+      {!active && !data?.length && (
         <Button
           onClick={handleForm}
           className={styles.button}
@@ -84,7 +81,7 @@ const Products = ({ className, items }: IProps) => {
           boxShadow
         />
       )}
-      {active && !data.length && (
+      {active && !data?.length && (
         <ProductForm
           cancel={() => setActive(false)}
           form={{

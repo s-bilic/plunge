@@ -14,7 +14,7 @@ interface IProps {
   types: [];
 }
 
-const Stores = ({ className, items, types }: IProps) => {
+const Stores = ({ className, items, types, user }: IProps) => {
   const router = useRouter();
   const [data, setData] = useState(items);
   const [active, setActive] = useState(false);
@@ -29,7 +29,7 @@ const Stores = ({ className, items, types }: IProps) => {
   const addStore = async () => {
     await supabase
       .from("stores")
-      .insert({ user_id: 2, store_name: type })
+      .insert({ user_id: user[0]?.user_id, store_name: type })
       .select();
 
     router.refresh();
@@ -50,7 +50,7 @@ const Stores = ({ className, items, types }: IProps) => {
           <Store
             index={`${index + 1}`}
             className={styles.store}
-            href={`store/${item?.store_name.toLowerCase()}`}
+            href={`store/${item?.store_id}`}
             content={{ text: `${5} products` }}
             title={{ text: item?.store_name }}
             icon={{ name: "juice" }}

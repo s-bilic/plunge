@@ -14,6 +14,7 @@ import {
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
 import { clusterApiUrl } from "@solana/web3.js";
+import { SessionProvider } from "next-auth/react";
 
 // Default styles that can be overridden by your app
 require("@solana/wallet-adapter-react-ui/styles.css");
@@ -22,7 +23,7 @@ interface IProps {
   children?: React.ReactNode;
 }
 
-const Wallet = ({ children }: IProps) => {
+const Wallet = ({ children, session }: IProps) => {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
   const network = WalletAdapterNetwork.Devnet;
 
@@ -53,8 +54,9 @@ const Wallet = ({ children }: IProps) => {
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <WalletMultiButton style={{ marginTop: 20 }} />
-          {children}
+          <SessionProvider session={session} refetchInterval={0}>
+            {children}
+          </SessionProvider>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
