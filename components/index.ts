@@ -6,6 +6,8 @@ import ProductForm from "./productForm/productForm";
 import Products from "./products/products";
 import Wallet from "./wallet/wallet";
 import Payment from "./payment/payment";
+import Checkout from "./checkout/checkout";
+import ProductOverview from "./productOverview/productOverview";
 
 export {
   Store,
@@ -16,4 +18,6 @@ export {
   Product,
   ProductForm,
   Products,
+  Checkout,
+  ProductOverview,
 };

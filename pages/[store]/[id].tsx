@@ -1,16 +1,20 @@
 import { supabase } from "@utils";
 import { Title } from "@ui";
 import { Divider } from "@helper";
-import { Products } from "@components";
+import { Products, Checkout } from "@components";
 import { getSession } from "next-auth/react";
+import styles from "../../styles/store.module.scss";
 
 export default function StorePage({ productsData, storeId }) {
   return (
-    <div>
+    <div className={styles.store}>
       <Divider height={100} />
       <Title text={"Choose your products"} tag={"h2"} />
       <Divider height={100} />
-      <Products items={productsData} storeId={storeId} />
+      <div className={styles.grid}>
+        <Products items={productsData} storeId={storeId} />
+        <Checkout />
+      </div>
       <Divider height={100} />
     </div>
   );

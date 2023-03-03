@@ -1,0 +1,25 @@
+.productOverview {
+  display: flex;
+  align-items: center;
+}
+
+.wrapper {
+  margin-left: var(--spacing-m);
+}
+
+.currency {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.iconCurrency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--color-light), 1);
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  margin-left: var(--spacing-xs);
+}

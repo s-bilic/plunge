@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./product.module.scss";
+import styles from "./productOverview.module.scss";
 import classNames from "classnames/bind";
 import { Tile, Title, Content } from "@ui";
 import { Icon } from "@helper";
@@ -15,37 +15,28 @@ interface IProps {
   icon?: React.ComponentProps<typeof Icon>;
 }
 
-const Product = ({ className, href, title, content, icon }: IProps) => {
+const ProductOverview = ({ className, title, content, icon }: IProps) => {
   const classes = cx(
     {
-      product: true,
+      productOverview: true,
     },
     className
   );
 
   return (
     <div className={classes}>
-      <Tile
-        className={styles.tile}
-        color={"light"}
-        href={href}
-        boxShadow
-        borderRadius
-      >
-        {icon && <Icon className={styles.icon} size={"s"} {...icon} />}
-      </Tile>
+      {icon && <Icon className={styles.icon} size={"xs"} {...icon} />}
       <div className={styles.wrapper}>
-        {title && <Content size={"xs"} emphasize {...title} />}
+        {title && <Content size={"xxs"} emphasize {...title} />}
         <div className={styles.currency}>
           {content && (
-            <Content size={"s"} color={"dark"} emphasize {...content} />
+            <Content size={"xs"} color={"dark"} emphasize {...content} />
           )}
           <Icon className={styles.iconCurrency} name={"sol"} size={"xxxxs"} />
-          {/* <Icon name={"usdc"} size={"xxxs"} /> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default Product;
+export default ProductOverview;
