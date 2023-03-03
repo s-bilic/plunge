@@ -18,10 +18,8 @@ export default function StorePage({ productsData, storeId }) {
 
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
-  const { id } = context.params;
-
-  // TO-DO: Only connected user can see their store with products
-
+  const { id, store } = context.params;
+  const storeAddress = store;
   // const { data: user } = await supabase
   //   .from("users")
   //   .select()
@@ -38,6 +36,15 @@ export async function getServerSideProps(context: any) {
     .select()
     .eq("store_id", id);
 
+  // If you only want the store to be visible to the owner (after connecting)
+  // if (session?.user?.name !== storeAddress) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
+
+  console.log(store);
+  console.log();
   return {
     props: {
       session,

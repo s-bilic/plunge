@@ -50,10 +50,11 @@ const Stores = ({ className, items, types, user }: IProps) => {
           <Store
             index={`${index + 1}`}
             className={styles.store}
-            href={`store/${item?.store_id}`}
+            // href={`store/${item?.store_id}`}
+            href={`${user[0]?.user_address}/${item?.store_id}`}
             content={{ text: `${5} products` }}
             title={{ text: item?.store_name }}
-            icon={{ name: "juice" }}
+            icon={{ name: "store" }}
             {...item}
           />
           {data.length - 1 === index && (

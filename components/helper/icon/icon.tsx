@@ -44,7 +44,7 @@ const Icon = ({
     <>
       <ReactSVG
         color={color}
-        src={`../icons/${name}.svg`}
+        src={`../${name}.svg`}
         className={classes}
         style={svgStyle}
       />

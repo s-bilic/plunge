@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  items?: { name: string; price: number; icon: string }[];
+  items?: { product_name: string; product_price: number; icon: string }[];
 }
 
 const Products = ({ className, items, stores, storeId }: IProps) => {
@@ -31,7 +31,7 @@ const Products = ({ className, items, stores, storeId }: IProps) => {
   const addData = async () => {
     await supabase.from("products").insert({
       product_name: formData[0]?.value,
-      price: formData[1]?.value,
+      product_price: formData[1]?.value,
       store_id: storeId,
     });
 
@@ -45,7 +45,7 @@ const Products = ({ className, items, stores, storeId }: IProps) => {
             href={"/"}
             className={styles.product}
             title={{ text: item?.product_name }}
-            content={{ text: item?.price?.toString() }}
+            content={{ text: item?.product_price?.toString() }}
             icon={{ name: item?.icon }}
           />
           {data?.length - 1 === index && (
