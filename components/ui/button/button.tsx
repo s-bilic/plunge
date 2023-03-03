@@ -34,6 +34,7 @@ const Button = ({
   disabled = false,
   icon,
   className,
+  title,
 }: IProps) => {
   const classes = cx(
     {
@@ -44,12 +45,18 @@ const Button = ({
       boxShadow,
       icon,
       grow,
+
       [`background-${color}`]: color,
     },
     className
   );
   return (
-    <button className={classes} onClick={onClick} disabled={disabled}>
+    <button
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+      title={title}
+    >
       {text && <Content text={text} size={size} color={textColor} />}
       {icon && <Icon {...icon} />}
     </button>

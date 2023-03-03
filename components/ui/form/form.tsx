@@ -49,7 +49,7 @@ const Form = ({ className, items, button, onChange }: IProps) => {
           {...item}
         />
       ))}
-      {button && <Button grow {...button} />}
+      {/* {button && <Button grow {...button} />} */}
     </div>
   );
 };

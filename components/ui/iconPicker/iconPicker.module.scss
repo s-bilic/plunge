@@ -1,0 +1,25 @@
+.iconPicker {
+  margin: var(--spacing-m) 0;
+}
+
+.label {
+  margin-bottom: var(--spacing-s);
+}
+
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-m);
+}
+
+.icon {
+  padding: var(--spacing-s);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow);
+}
+
+.active {
+  padding: var(--spacing-s);
+  border-radius: var(--radius-m);
+  box-shadow: 0 0 0 2px rgba(var(--color-energized), 1);
+}

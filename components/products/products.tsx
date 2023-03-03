@@ -9,13 +9,18 @@ const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  items?: { product_name: string; product_price: number; icon: string }[];
+  items?: {
+    product_name: string;
+    product_price: number;
+    product_icon: string;
+  }[];
 }
 
 const Products = ({ className, items, stores, storeId }: IProps) => {
   const router = useRouter();
   const [data, setData] = useState(items);
   const [formData, setFormData] = useState("");
+  const [iconData, setIconData] = useState("");
   const [active, setActive] = useState(false);
   const classes = cx(
     {
@@ -32,11 +37,14 @@ const Products = ({ className, items, stores, storeId }: IProps) => {
     await supabase.from("products").insert({
       product_name: formData[0]?.value,
       product_price: formData[1]?.value,
+      product_icon: iconData,
       store_id: storeId,
     });
 
     router.refresh();
   };
+
+  console.log(iconData);
   return (
     <div className={classes}>
       {data?.map((item, index) => (
@@ -46,7 +54,7 @@ const Products = ({ className, items, stores, storeId }: IProps) => {
             className={styles.product}
             title={{ text: item?.product_name }}
             content={{ text: item?.product_price?.toString() }}
-            icon={{ name: item?.icon }}
+            icon={{ name: item?.product_icon }}
           />
           {data?.length - 1 === index && (
             <>
@@ -62,9 +70,12 @@ const Products = ({ className, items, stores, storeId }: IProps) => {
               {active && (
                 <ProductForm
                   cancel={() => setActive(false)}
+                  button={{ text: "Add", onClick: addData }}
                   form={{
-                    button: { text: "Add", onClick: addData },
                     onChange: (e) => setFormData(e),
+                  }}
+                  iconPicker={{
+                    onChange: (e) => setIconData(e),
                   }}
                 />
               )}
@@ -84,9 +95,12 @@ const Products = ({ className, items, stores, storeId }: IProps) => {
       {active && !data?.length && (
         <ProductForm
           cancel={() => setActive(false)}
+          button={{ text: "Add", onClick: addData }}
           form={{
-            button: { text: "Add", onClick: addData },
             onChange: (e) => setFormData(e),
+          }}
+          iconPicker={{
+            onChange: (e) => setIconData(e),
           }}
         />
       )}

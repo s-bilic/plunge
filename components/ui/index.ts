@@ -6,5 +6,17 @@ import Card from "./card/card";
 import Tile from "./tile/tile";
 import Form from "./form/form";
 import Element from "./element/element";
+import IconPicker from "./iconPicker/iconPicker";
 
-export { Layout, Title, Content, Button, Badge, Card, Tile, Form, Element };
+export {
+  Layout,
+  Title,
+  Content,
+  Button,
+  Badge,
+  Card,
+  Tile,
+  Form,
+  Element,
+  IconPicker,
+};

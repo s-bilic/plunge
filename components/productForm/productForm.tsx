@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "./productForm.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content, Badge, Button, Form, Element } from "@ui";
+import {
+  Tile,
+  Title,
+  Content,
+  Badge,
+  Button,
+  Form,
+  Element,
+  IconPicker,
+} from "@ui";
 
 const cx = classNames.bind(styles);
 
@@ -13,9 +22,18 @@ interface IProps {
   cancel?: React.MouseEventHandler<HTMLButtonElement>;
   onChange?: any;
   form?: any;
+  button?: any;
 }
 
-const ProductForm = ({ className, types, save, cancel, form }: IProps) => {
+const ProductForm = ({
+  className,
+  types,
+  save,
+  cancel,
+  form,
+  button,
+  iconPicker,
+}: IProps) => {
   const [data, setData] = useState([
     {
       id: "0",
@@ -41,6 +59,8 @@ const ProductForm = ({ className, types, save, cancel, form }: IProps) => {
     <div className={classes}>
       <Tile className={styles.tile} boxShadow borderRadius>
         <Form items={data} {...form} />
+        <IconPicker label={"Icon"} {...iconPicker} />
+        {button && <Button grow {...button} />}
       </Tile>
     </div>
   );
