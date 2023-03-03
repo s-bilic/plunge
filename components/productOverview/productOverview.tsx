@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./productOverview.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content } from "@ui";
+import { Tile, Title, Content, Counter } from "@ui";
 import { Icon } from "@helper";
 
 const cx = classNames.bind(styles);
@@ -25,16 +25,19 @@ const ProductOverview = ({ className, title, content, icon }: IProps) => {
 
   return (
     <div className={classes}>
-      {icon && <Icon className={styles.icon} size={"xs"} {...icon} />}
-      <div className={styles.wrapper}>
-        {title && <Content size={"xxs"} emphasize {...title} />}
-        <div className={styles.currency}>
-          {content && (
-            <Content size={"xs"} color={"dark"} emphasize {...content} />
-          )}
-          <Icon className={styles.iconCurrency} name={"sol"} size={"xxxxs"} />
+      <div className={styles.product}>
+        {icon && <Icon className={styles.icon} size={"xs"} {...icon} />}
+        <div className={styles.wrapper}>
+          {title && <Content size={"xxs"} emphasize {...title} />}
+          <div className={styles.currency}>
+            {content && (
+              <Content size={"xs"} color={"dark"} emphasize {...content} />
+            )}
+            <Icon className={styles.iconCurrency} name={"sol"} size={"xxxxs"} />
+          </div>
         </div>
       </div>
+      <Counter value={1} />
     </div>
   );
 };

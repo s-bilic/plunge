@@ -1,6 +1,11 @@
 .productOverview {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.product {
+  display: flex;
 }
 
 .wrapper {
@@ -16,10 +21,10 @@
 .iconCurrency {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: rgba(var(--color-light), 1);
-  border-radius: 100%;
-  width: 24px;
-  height: 24px;
+  // justify-content: center;
+  // background-color: rgba(var(--color-light), 1);
+  // border-radius: 100%;
+  // width: 24px;
+  // height: 24px;
   margin-left: var(--spacing-xs);
 }

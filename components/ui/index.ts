@@ -7,6 +7,7 @@ import Tile from "./tile/tile";
 import Form from "./form/form";
 import Element from "./element/element";
 import IconPicker from "./iconPicker/iconPicker";
+import Counter from "./counter/counter";
 
 export {
   Layout,
@@ -19,4 +20,5 @@ export {
   Form,
   Element,
   IconPicker,
+  Counter,
 };

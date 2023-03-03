@@ -1,0 +1,17 @@
+.counter {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(var(--color-stable), 1);
+}
+
+.button {
+  padding: var(--spacing-s);
+  margin-left: 0;
+}
+
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
