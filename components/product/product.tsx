@@ -8,17 +8,26 @@ const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  href?: string;
+  onClick?: string;
   index?: string;
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
+  active?: boolean;
 }
 
-const Product = ({ className, href, title, content, icon }: IProps) => {
+const Product = ({
+  className,
+  onClick,
+  title,
+  content,
+  icon,
+  active,
+}: IProps) => {
   const classes = cx(
     {
       product: true,
+      active,
     },
     className
   );
@@ -26,9 +35,9 @@ const Product = ({ className, href, title, content, icon }: IProps) => {
   return (
     <div className={classes}>
       <Tile
+        onClick={onClick}
         className={styles.tile}
         color={"light"}
-        href={href}
         boxShadow
         borderRadius
       >

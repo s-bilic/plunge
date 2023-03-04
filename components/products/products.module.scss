@@ -12,6 +12,11 @@
   &:last-of-type {
     margin-right: var(--spacing-m);
   }
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 }
 
 .button {

@@ -9,9 +9,10 @@ const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
+  items: any;
 }
 
-const Checkout = ({ className }: IProps) => {
+const Checkout = ({ className, items }: IProps) => {
   const classes = cx(
     {
       checkout: true,
@@ -21,11 +22,16 @@ const Checkout = ({ className }: IProps) => {
 
   return (
     <Card className={classes} color={"light"} boxShadow borderRadius padding>
-      <ProductOverview
-        title={{ text: "Apple" }}
-        content={{ text: "3" }}
-        icon={{ name: "juice" }}
-      />
+      {items?.map((item, index) => (
+        <ProductOverview
+          key={index}
+          className={styles.item}
+          title={{ text: item?.product_name }}
+          content={{ text: item?.product_price }}
+          icon={{ name: item?.product_icon }}
+          {...item}
+        />
+      ))}
     </Card>
   );
 };

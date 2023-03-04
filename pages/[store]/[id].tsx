@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { supabase } from "@utils";
 import { Title } from "@ui";
 import { Divider } from "@helper";
@@ -6,14 +7,31 @@ import { getSession } from "next-auth/react";
 import styles from "../../styles/store.module.scss";
 
 export default function StorePage({ productsData, storeId }) {
+  const [selectedData, setSelectedData] = useState();
+  const selectedProducts = [
+    {
+      product_name: "Apple",
+      product_price: 5,
+      product_icon: "juice",
+    },
+    {
+      product_name: "Apple",
+      product_price: 5,
+      product_icon: "juice",
+    },
+  ];
   return (
     <div className={styles.store}>
       <Divider height={100} />
       <Title text={"Choose your products"} tag={"h2"} />
       <Divider height={100} />
       <div className={styles.grid}>
-        <Products items={productsData} storeId={storeId} />
-        <Checkout />
+        <Products
+          items={productsData}
+          storeId={storeId}
+          onChange={(e) => setSelectedData(e)}
+        />
+        <Checkout items={selectedData} />
       </div>
       <Divider height={100} />
     </div>
@@ -48,7 +66,6 @@ export async function getServerSideProps(context: any) {
   // }
 
   console.log(store);
-  console.log();
   return {
     props: {
       session,

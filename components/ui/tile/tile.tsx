@@ -17,6 +17,7 @@ interface IProps {
   color?: string;
   className?: string;
   href?: string;
+  onClick?: any;
 }
 
 const Tile = ({
@@ -30,6 +31,7 @@ const Tile = ({
   color = "light",
   className,
   href,
+  onClick,
 }: IProps) => {
   const classes = cx(
     {
@@ -44,7 +46,7 @@ const Tile = ({
   );
 
   const CustomComponent = (
-    <div className={classes}>
+    <div className={classes} onClick={onClick}>
       {header && (
         <div className={styles.header}>
           {header?.content && <Content {...header?.content} />}

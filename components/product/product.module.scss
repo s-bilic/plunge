@@ -41,3 +41,9 @@
   height: 24px;
   margin-left: var(--spacing-xs);
 }
+
+.active {
+  .tile {
+    box-shadow: 0 0 0 2px rgba(var(--color-energized), 1);
+  }
+}

@@ -3,3 +3,11 @@
   max-width: 350px;
   padding: var(--spacing-xl);
 }
+
+.item {
+  margin-bottom: var(--spacing-l);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

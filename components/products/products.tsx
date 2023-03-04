@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./products.module.scss";
 import classNames from "classnames/bind";
@@ -14,14 +14,17 @@ interface IProps {
     product_price: number;
     product_icon: string;
   }[];
+  onChange: any;
 }
 
-const Products = ({ className, items, stores, storeId }: IProps) => {
+const Products = ({ className, items, stores, storeId, onChange }: IProps) => {
   const router = useRouter();
   const [data, setData] = useState(items);
   const [formData, setFormData] = useState("");
   const [iconData, setIconData] = useState("");
   const [active, setActive] = useState(false);
+  const [selected, setSelected] = useState([]);
+
   const classes = cx(
     {
       products: true,
@@ -44,17 +47,33 @@ const Products = ({ className, items, stores, storeId }: IProps) => {
     router.refresh();
   };
 
-  console.log(iconData);
+  const handleProductToggle = (product: any) => {
+    if (selected.includes(product)) {
+      setSelected(selected.filter((p) => p !== product));
+    } else {
+      setSelected([...selected, product]);
+    }
+  };
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selected);
+    }
+  }, [selected]);
+
   return (
     <div className={classes}>
       {data?.map((item, index) => (
         <React.Fragment key={index}>
           <Product
-            href={"/"}
+            onClick={() => handleProductToggle(item)}
             className={styles.product}
             title={{ text: item?.product_name }}
             content={{ text: item?.product_price?.toString() }}
             icon={{ name: item?.product_icon }}
+            active={selected.some(
+              (selectedItem) => selectedItem.product_id === item.product_id
+            )}
           />
           {data?.length - 1 === index && (
             <>
