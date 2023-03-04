@@ -5,13 +5,11 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { encodeURL, createQR } from "@solana/pay";
 import BigNumber from "bignumber.js";
 
-const Payment = () => {
+const Payment = ({ receiverAddress, paymentAmount }) => {
   const ref: any = useRef();
-  const wallet = useWallet();
-  const recipient = new PublicKey(
-    "5gGgLjSHQ5Q5Hzz82S6XGJQdu6t9wjmrr81L3VAL1Rpf"
-  );
-  const amount = new BigNumber(20);
+  // const wallet = useWallet();
+  const recipient = new PublicKey(receiverAddress);
+  const amount = new BigNumber(paymentAmount);
   const reference = new Keypair().publicKey;
   const label = "label";
   const message = "Jungle Cats store - your order - #001234";
@@ -20,8 +18,9 @@ const Payment = () => {
   // console.log(wallet.publicKey?.toBase58());
 
   const url = encodeURL({ recipient, amount, reference, label, message, memo });
+
   useEffect(() => {
-    const qrCode = createQR(url);
+    const qrCode = createQR(url, 350);
     qrCode.append(ref?.current);
   }, []);
 

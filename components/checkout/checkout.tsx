@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styles from "./checkout.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content, Card } from "@ui";
+import { Tile, Title, Content, Card, Button } from "@ui";
 import { Icon } from "@helper";
-import { ProductOverview } from "@components";
+import { ProductOverview, Payment } from "@components";
 
 const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
   items: any;
+  receiverAddress: any;
 }
 
-const Checkout = ({ className, items }: IProps) => {
+const Checkout = ({ className, items, receiverAddress }: IProps) => {
   const [countData, setCountData] = useState(new Array(items?.length).fill(1));
   const [totalPrice, setTotalPrice] = useState(0);
+  const [active, setActive] = useState();
   const classes = cx(
     {
       checkout: true,
@@ -57,12 +59,28 @@ const Checkout = ({ className, items }: IProps) => {
           );
         })}
       </div>
-      <div className={styles.subtotal}>
-        <Content text={"Subtotal"} size={"xs"} color={"stable-700"} />
-        <div className={styles.currency}>
-          <Content text={totalPrice} emphasize />
-          <Icon className={styles.iconCurrency} name={"sol"} size={"xxxxs"} />
+      <div>
+        <div className={styles.subtotal}>
+          <Content text={"Subtotal"} size={"xs"} color={"stable-700"} />
+          <div className={styles.currency}>
+            <Content text={totalPrice} emphasize />
+            <Icon className={styles.iconCurrency} name={"sol"} size={"xxxxs"} />
+          </div>
         </div>
+        {active && receiverAddress && (
+          <div className={styles.payment}>
+            <Payment
+              receiverAddress={receiverAddress}
+              paymentAmount={totalPrice}
+            />
+          </div>
+        )}
+        <Button
+          onClick={(e) => setActive(e)}
+          className={styles.button}
+          text={"Pay"}
+          grow
+        />
       </div>
     </Card>
   );

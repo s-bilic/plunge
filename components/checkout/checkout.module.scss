@@ -37,3 +37,13 @@
   align-items: center;
   margin-left: var(--spacing-xs);
 }
+
+.button {
+  border-radius: 0;
+}
+
+.payment {
+
+  width: 100%;
+  display: flex;
+}

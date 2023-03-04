@@ -6,7 +6,7 @@ import { Products, Checkout } from "@components";
 import { getSession } from "next-auth/react";
 import styles from "../../styles/store.module.scss";
 
-export default function StorePage({ productsData, storeId }) {
+export default function StorePage({ productsData, storeId, storeAddress }) {
   const [selectedData, setSelectedData] = useState();
 
   return (
@@ -20,7 +20,7 @@ export default function StorePage({ productsData, storeId }) {
           storeId={storeId}
           onChange={(e) => setSelectedData(e)}
         />
-        <Checkout items={selectedData} />
+        <Checkout items={selectedData} receiverAddress={storeAddress} />
       </div>
       <Divider height={100} />
     </div>
@@ -58,6 +58,7 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       session,
+      storeAddress,
       storeId: id,
       productsData: products || [],
     },
