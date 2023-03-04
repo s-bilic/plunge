@@ -23,9 +23,9 @@ const Counter = ({ className, value, onChange }: IProps) => {
 
   useEffect(() => {
     if (onChange) {
-      onChange(value);
+      onChange(count);
     }
-  }, [value]);
+  }, [count]);
 
   return (
     <div className={classes}>

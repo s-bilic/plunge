@@ -1,6 +1,13 @@
 .checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   max-width: 350px;
+  min-height: 500px;
+}
+
+.items {
   padding: var(--spacing-xl);
 }
 
@@ -10,4 +17,23 @@
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: solid 1px rgba(var(--color-stable), 1);
+  padding: var(--spacing-xl);
+}
+
+.currency {
+  display: flex;
+  align-items: center;
+}
+
+.iconCurrency {
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-xs);
 }

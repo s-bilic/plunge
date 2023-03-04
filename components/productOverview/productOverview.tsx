@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./productOverview.module.scss";
 import classNames from "classnames/bind";
 import { Tile, Title, Content, Counter } from "@ui";
@@ -13,9 +13,17 @@ interface IProps {
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
+  counter?: any;
+  updateItemCount?: any;
 }
 
-const ProductOverview = ({ className, title, content, icon }: IProps) => {
+const ProductOverview = ({
+  className,
+  title,
+  content,
+  icon,
+  counter,
+}: IProps) => {
   const classes = cx(
     {
       productOverview: true,
@@ -37,7 +45,7 @@ const ProductOverview = ({ className, title, content, icon }: IProps) => {
           </div>
         </div>
       </div>
-      <Counter value={1} />
+      {counter && <Counter {...counter} />}
     </div>
   );
 };

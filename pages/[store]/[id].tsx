@@ -8,18 +8,7 @@ import styles from "../../styles/store.module.scss";
 
 export default function StorePage({ productsData, storeId }) {
   const [selectedData, setSelectedData] = useState();
-  const selectedProducts = [
-    {
-      product_name: "Apple",
-      product_price: 5,
-      product_icon: "juice",
-    },
-    {
-      product_name: "Apple",
-      product_price: 5,
-      product_icon: "juice",
-    },
-  ];
+
   return (
     <div className={styles.store}>
       <Divider height={100} />
