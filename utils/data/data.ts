@@ -15,7 +15,6 @@ const storeTypes = [
   "Warehouse",
   "Games",
   "Specialty",
-  "Supermarket",
   "Grocery",
   "Convenience",
   "Vegan",

@@ -54,12 +54,12 @@ const Stores = ({ className, items, types, user }: IProps) => {
             href={`${user[0]?.user_address}/${item?.store_id}`}
             content={{ text: `${5} products` }}
             title={{ text: item?.store_name }}
-            icon={{ name: "store" }}
+            icon={{ name: item?.store_name }}
             {...item}
           />
           {data.length - 1 === index && (
             <>
-              {!active && (
+              {!active && data?.length < 13 && (
                 <Button
                   onClick={handleForm}
                   className={styles.button}

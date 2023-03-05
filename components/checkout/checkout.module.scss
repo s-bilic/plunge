@@ -1,10 +1,17 @@
+@import '../../styles/mixins.scss';
+
 .checkout {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: 350px;
   min-height: 500px;
+  margin-top: var(--spacing-l);
+
+  @include large {
+    max-width: 350px;
+    margin-top: 0;
+  }
 }
 
 .items {
@@ -43,7 +50,6 @@
 }
 
 .payment {
-
   width: 100%;
   display: flex;
 }

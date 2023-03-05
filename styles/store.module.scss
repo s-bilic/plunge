@@ -6,7 +6,7 @@
   justify-content: space-between;
   gap: var(--spacing-l);
 
-  @include medium {
+  @include large {
     flex-direction: row;
   }
 }
