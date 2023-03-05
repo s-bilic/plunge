@@ -16,7 +16,7 @@ interface IProps {
 const Checkout = ({ className, items, receiverAddress }: IProps) => {
   const [countData, setCountData] = useState(new Array(items?.length).fill(1));
   const [totalPrice, setTotalPrice] = useState(0);
-  const [active, setActive] = useState();
+  const [active, setActive] = useState(false);
   const classes = cx(
     {
       checkout: true,
@@ -38,6 +38,10 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
 
     setTotalPrice(newTotalPrice);
   }, [items, countData]);
+
+  useEffect(() => {
+    setActive(false);
+  }, [totalPrice]);
 
   return (
     <Card className={classes} color={"light"} boxShadow borderRadius>

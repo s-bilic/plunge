@@ -1,20 +1,11 @@
 .stores {
   display: flex;
-}
-
-.store {
-  margin-left: var(--spacing-m);
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-of-type {
-    margin-right: var(--spacing-m);
-  }
+  flex-wrap: wrap;
+  gap: var(--spacing-l);
 }
 
 .button {
   width: 140px;
   height: 140px;
+  margin: 0;
 }

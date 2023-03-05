@@ -1,4 +1,12 @@
+@import "../styles//mixins.scss";
+
 .grid {
   display: flex;
-  gap: var(--spacing-xl);
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-l);
+
+  @include medium {
+    flex-direction: row;
+  }
 }

@@ -15,9 +15,17 @@ interface IProps {
     product_icon: string;
   }[];
   onChange: any;
+  admin: boolean;
 }
 
-const Products = ({ className, items, stores, storeId, onChange }: IProps) => {
+const Products = ({
+  className,
+  items,
+  stores,
+  storeId,
+  onChange,
+  admin,
+}: IProps) => {
   const router = useRouter();
   const [data, setData] = useState(items);
   const [formData, setFormData] = useState("");
@@ -61,6 +69,8 @@ const Products = ({ className, items, stores, storeId, onChange }: IProps) => {
     }
   }, [selected]);
 
+  console.log(admin);
+
   return (
     <div className={classes}>
       {data?.map((item, index) => (
@@ -77,7 +87,7 @@ const Products = ({ className, items, stores, storeId, onChange }: IProps) => {
           />
           {data?.length - 1 === index && (
             <>
-              {!active && (
+              {!active && admin && (
                 <Button
                   onClick={handleForm}
                   className={styles.button}
@@ -88,6 +98,7 @@ const Products = ({ className, items, stores, storeId, onChange }: IProps) => {
               )}
               {active && (
                 <ProductForm
+                  save={addData}
                   cancel={() => setActive(false)}
                   button={{ text: "Add", onClick: addData }}
                   form={{
@@ -102,7 +113,7 @@ const Products = ({ className, items, stores, storeId, onChange }: IProps) => {
           )}
         </React.Fragment>
       ))}
-      {!active && !data?.length && (
+      {!active && !data?.length && admin && (
         <Button
           onClick={handleForm}
           className={styles.button}
@@ -113,6 +124,7 @@ const Products = ({ className, items, stores, storeId, onChange }: IProps) => {
       )}
       {active && !data?.length && (
         <ProductForm
+          save={addData}
           cancel={() => setActive(false)}
           button={{ text: "Add", onClick: addData }}
           form={{

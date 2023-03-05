@@ -31,7 +31,6 @@ const ProductForm = ({
   save,
   cancel,
   form,
-  button,
   iconPicker,
 }: IProps) => {
   const [data, setData] = useState([
@@ -57,10 +56,29 @@ const ProductForm = ({
   // sidebar + input form (name, price, icon) + list of created items
   return (
     <div className={classes}>
-      <Tile className={styles.tile} boxShadow borderRadius>
+      <Tile
+        footer={{
+          buttons: [
+            {
+              text: "Add",
+              grow: true,
+              onClick: save,
+            },
+            {
+              text: "Cancel",
+              grow: true,
+              color: "transparent",
+              textColor: "dark",
+              onClick: cancel,
+            },
+          ],
+        }}
+        className={styles.tile}
+        boxShadow
+        borderRadius
+      >
         <Form items={data} {...form} />
         <IconPicker label={"Icon"} {...iconPicker} />
-        {button && <Button grow {...button} />}
       </Tile>
     </div>
   );

@@ -6,7 +6,12 @@ import { Products, Checkout } from "@components";
 import { getSession } from "next-auth/react";
 import styles from "../../styles/store.module.scss";
 
-export default function StorePage({ productsData, storeId, storeAddress }) {
+export default function StorePage({
+  productsData,
+  storeId,
+  storeAddress,
+  admin,
+}) {
   const [selectedData, setSelectedData] = useState();
 
   return (
@@ -19,6 +24,7 @@ export default function StorePage({ productsData, storeId, storeAddress }) {
           items={productsData}
           storeId={storeId}
           onChange={(e) => setSelectedData(e)}
+          admin={admin}
         />
         <Checkout items={selectedData} receiverAddress={storeAddress} />
       </div>
@@ -31,16 +37,6 @@ export async function getServerSideProps(context: any) {
   const session = await getSession(context);
   const { id, store } = context.params;
   const storeAddress = store;
-  // const { data: user } = await supabase
-  //   .from("users")
-  //   .select()
-  //   .eq("user_address", session?.user?.name);
-
-  // const { data: stores } = await supabase
-  //   .from("stores")
-  //   .select()
-  //   .eq("user_id", user[0]?.user_id);
-  // console.log(stores, "storess");
 
   const { data: products } = await supabase
     .from("products")
@@ -59,6 +55,7 @@ export async function getServerSideProps(context: any) {
     props: {
       session,
       storeAddress,
+      admin: session?.user?.name === storeAddress ? true : false,
       storeId: id,
       productsData: products || [],
     },
