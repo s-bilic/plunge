@@ -119,7 +119,7 @@ const Home = ({ storesData, userData, session }) => {
         <Heading
           title={{ text: "Your stores", tag: "h5" }}
           content={{
-            text: "Create your store and astart adding products",
+            text: "Create your store and start adding products",
             size: "xs",
           }}
         />

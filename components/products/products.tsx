@@ -93,7 +93,7 @@ const Products = ({
                   className={styles.button}
                   icon={{ name: "plus", size: "xs" }}
                   color={"light"}
-                  boxShadow
+                  outline
                 />
               )}
               {active && (
@@ -117,9 +117,9 @@ const Products = ({
         <Button
           onClick={handleForm}
           className={styles.button}
-          icon={{ name: "plus", size: "xs" }}
+          icon={{ name: "plus", size: "xs", color: "energized" }}
           color={"light"}
-          boxShadow
+          outline
         />
       )}
       {active && !data?.length && (

@@ -38,7 +38,6 @@ const Product = ({
         onClick={onClick}
         className={styles.tile}
         color={"light"}
-        boxShadow
         borderRadius
       >
         {icon && <Icon className={styles.icon} size={"s"} {...icon} />}

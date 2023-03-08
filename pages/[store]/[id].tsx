@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@utils";
-import { Title } from "@ui";
+import { Title, Heading, Container, Breadcrumbs } from "@ui";
 import { Divider } from "@helper";
 import { Products, Checkout } from "@components";
 import { getSession } from "next-auth/react";
@@ -17,18 +17,29 @@ export default function StorePage({
   return (
     <div className={styles.store}>
       <Divider height={100} />
-      <Title text={"Choose your products"} tag={"h2"} />
-      <Divider height={100} />
-      <div className={styles.grid}>
-        <Products
-          items={productsData}
-          storeId={storeId}
-          onChange={(e) => setSelectedData(e)}
-          admin={admin}
-        />
+      <Breadcrumbs items={[{ text: "Stores" }, { text: "Products" }]} />
+      <Divider height={20} />
+      <div className={styles.wrapper}>
+        <Container>
+          <Heading
+            title={{ text: "Products", tag: "h5" }}
+            content={{
+              text: "Start creating your products",
+              size: "xs",
+            }}
+          />
+          <Divider height={40} />
+          <div className={styles.grid}>
+            <Products
+              items={productsData}
+              storeId={storeId}
+              onChange={(e) => setSelectedData(e)}
+              admin={admin}
+            />
+          </div>
+        </Container>
         <Checkout items={selectedData} receiverAddress={storeAddress} />
       </div>
-      <Divider height={100} />
     </div>
   );
 }

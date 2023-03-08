@@ -1,5 +1,11 @@
 @import "../styles//mixins.scss";
 
+.wrapper {
+  display: flex;
+  gap: var(--spacing-m);
+  width: 100%;
+}
+
 .grid {
   display: flex;
   flex-direction: column;

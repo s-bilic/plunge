@@ -44,7 +44,7 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
   }, [totalPrice]);
 
   return (
-    <Card className={classes} color={"light"} boxShadow borderRadius>
+    <Card className={classes} color={"light"} borderRadius outline>
       <div className={styles.items}>
         {items?.map((item, index) => {
           return (
@@ -83,6 +83,7 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
           onClick={(e) => setActive(e)}
           className={styles.button}
           text={"Pay"}
+          color={"royal"}
           grow
         />
       </div>

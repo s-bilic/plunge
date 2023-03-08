@@ -4,6 +4,7 @@
   display: flex;
   width: 140px;
   height: 140px;
+  border: solid 1px rgba(var(--color-stable), 1);
 }
 
 .index {
@@ -16,7 +17,10 @@
 }
 
 .wrapper {
-  padding-top: var(--spacing-l);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--spacing-s);
 }
 
 .icon {
@@ -40,7 +44,6 @@
   border-radius: 100%;
   width: 24px;
   height: 24px;
-  margin-left: var(--spacing-xs);
 }
 
 .active {
