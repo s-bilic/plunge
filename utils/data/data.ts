@@ -41,4 +41,31 @@ const productsData = [
   },
 ];
 
-export { storesData, storeTypes, productsData };
+const actionCardsData = [
+  {
+    title: {
+      text: "Store-checkout",
+    },
+    content: {
+      text: "Solana payments integrated into your store",
+    },
+  },
+  {
+    title: {
+      text: "Self-checkout",
+    },
+    content: {
+      text: "Solana payments integrated into your store",
+    },
+  },
+  {
+    title: {
+      text: "Online-checkout",
+    },
+    content: {
+      text: "Solana payments integrated into your store",
+    },
+  },
+];
+
+export { storesData, storeTypes, productsData, actionCardsData };

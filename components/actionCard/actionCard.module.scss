@@ -1,0 +1,14 @@
+.actionCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: solid 1px rgba(var(--color-stable), 1);
+  padding: var(--spacing-m);
+  border-radius: var(--radius-m);
+  min-height: 140px;
+  max-width: 200px;
+}
+
+.title {
+  margin-bottom: var(--spacing-s);
+}

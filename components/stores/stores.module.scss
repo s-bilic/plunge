@@ -1,11 +1,18 @@
 .stores {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-l);
+  border-radius: 20px;
+  z-index: 1;
+
+  a {
+    height: 100%;
+  }
 }
 
 .button {
-  width: 140px;
+  width: 80px;
   height: 140px;
   margin: 0;
 }

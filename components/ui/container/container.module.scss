@@ -1,6 +1,6 @@
 .container {
-  max-width: var(--global-width);
-  margin: 0 auto;
-  padding: var(--spacing-xxl) var(--spacing-m);
-  width: 100%;
+  padding: var(--spacing-xxl);
+  background-color: rgba(var(--color-light), 1);
+  border: solid 1px rgba(var(--color-stable), 1);
+  border-radius: var(--radius-m);
 }

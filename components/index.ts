@@ -8,6 +8,7 @@ import Wallet from "./wallet/wallet";
 import Payment from "./payment/payment";
 import Checkout from "./checkout/checkout";
 import ProductOverview from "./productOverview/productOverview";
+import ActionCard from "./actionCard/actionCard";
 
 export {
   Store,
@@ -20,4 +21,5 @@ export {
   Products,
   Checkout,
   ProductOverview,
+  ActionCard,
 };

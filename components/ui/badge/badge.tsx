@@ -17,6 +17,7 @@ interface IProps {
   boxShadow?: boolean;
   disabled?: boolean;
   active?: boolean;
+  lighten?: boolean;
   icon?: React.ComponentProps<typeof Icon>;
   className?: string;
 }
@@ -32,6 +33,7 @@ const Badge = ({
   boxShadow = false,
   disabled = false,
   active = false,
+  lighten = false,
   icon,
   className,
 }: IProps) => {
@@ -44,13 +46,21 @@ const Badge = ({
       outline,
       boxShadow,
       icon,
+      lighten,
       [`background-${color}`]: color,
     },
     className
   );
   return (
     <button className={classes} onClick={onClick} disabled={disabled}>
-      {text && <Content text={text} size={size} color={textColor} />}
+      {text && (
+        <Content
+          className={styles.content}
+          text={text}
+          size={size}
+          color={textColor}
+        />
+      )}
       {icon && <Icon {...icon} />}
     </button>
   );

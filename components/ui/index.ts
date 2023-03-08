@@ -8,6 +8,9 @@ import Form from "./form/form";
 import Element from "./element/element";
 import IconPicker from "./iconPicker/iconPicker";
 import Counter from "./counter/counter";
+import Heading from "./heading/heading";
+import Container from "./container/container";
+import Breadcrumbs from "./breadcrumbs/breadcrumbs";
 
 export {
   Layout,
@@ -21,4 +24,7 @@ export {
   Element,
   IconPicker,
   Counter,
+  Heading,
+  Container,
+  Breadcrumbs,
 };

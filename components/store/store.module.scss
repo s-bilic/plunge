@@ -3,19 +3,18 @@
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  width: 140px;
+  width: 200px;
   height: 140px;
-}
-
-.index {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: rgba(var(--color-energized), 0.5);
-  padding: 3px var(--spacing-m);
-  border-bottom-left-radius: var(--radius-m);
+  border: solid 1px rgba(var(--color-stable), 1);
 }
 
 .wrapper {
   padding-top: var(--spacing-l);
+}
+
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: var(--spacing-s);
 }

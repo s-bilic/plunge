@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./stores.module.scss";
 import classNames from "classnames/bind";
-import { Button, Badge, Tile } from "@ui";
+import { Button, Badge, Tile, Title, Content } from "@ui";
 import { Store, StoreForm } from "@components";
 import { supabase } from "@utils";
+import { Icon } from "@helper";
 
 const cx = classNames.bind(styles);
 
@@ -59,13 +60,13 @@ const Stores = ({ className, items, types, user }: IProps) => {
           />
           {data.length - 1 === index && (
             <>
-              {!active && data?.length < 13 && (
+              {!active && data?.length < 14 && (
                 <Button
                   onClick={handleForm}
                   className={styles.button}
-                  icon={{ name: "plus", size: "xs" }}
+                  icon={{ name: "plus", size: "xs", color: "energized" }}
                   color={"light"}
-                  boxShadow
+                  outline
                 />
               )}
               {active && (
@@ -84,9 +85,10 @@ const Stores = ({ className, items, types, user }: IProps) => {
         <Button
           onClick={handleForm}
           className={styles.button}
-          icon={{ name: "plus", size: "xs" }}
+          icon={{ name: "plus", size: "xs", color: "energized" }}
           color={"light"}
-          boxShadow
+          disabled={!user.length}
+          outline
         />
       )}
       {active && !data.length && (

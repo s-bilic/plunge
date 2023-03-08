@@ -64,17 +64,20 @@ const StoreForm = ({ className, types, save, cancel, onChange }: IProps) => {
           ],
         }}
       >
-        {count === 0 &&
-          types?.map((item, index) => (
-            <Badge
-              key={index}
-              text={item}
-              textColor={"stable-700"}
-              active={type === item}
-              onClick={selectBadge}
-              outline
-            />
-          ))}
+        <div className={styles.types}>
+          {count === 0 &&
+            types?.map((item, index) => (
+              <Badge
+                key={index}
+                className={styles.badge}
+                text={item}
+                textColor={"stable-700"}
+                active={type === item}
+                onClick={selectBadge}
+                outline
+              />
+            ))}
+        </div>
       </Tile>
     </div>
   );

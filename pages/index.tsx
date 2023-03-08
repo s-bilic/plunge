@@ -3,12 +3,21 @@ import dynamic from "next/dynamic";
 import { getCsrfToken, signIn, signOut, getSession } from "next-auth/react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { storeTypes, supabase, SigninMessage } from "@utils";
+import { storeTypes, supabase, SigninMessage, actionCardsData } from "@utils";
 import bs58 from "bs58";
 import styles from "../styles/home.module.scss";
-import { Title, Content, Button, Card, Tile } from "@ui";
+import {
+  Title,
+  Content,
+  Button,
+  Card,
+  Tile,
+  Heading,
+  Container,
+  Breadcrumbs,
+} from "@ui";
 import { Divider, Icon } from "@helper";
-import { Stores, Payment, Product } from "@components";
+import { Stores, Payment, Product, ActionCard } from "@components";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -81,12 +90,42 @@ const Home = ({ storesData, userData, session }) => {
 
   return (
     <div className={styles.home}>
-      {!session && <WalletMultiButtonDynamic />}
-      {session?.user && <WalletDisconnectButton onClick={signOut} />}
       <Divider height={100} />
-      <Title text={"Create your store"} tag={"h2"} />
-      <Divider height={100} />
-      <Stores items={storesData} types={storeTypes} user={userData} />
+      {/* {!userData.length && <Content text={"Connect your wallet"} />}
+      {userData.length > 0 && <Content text={"Your stores"} />} */}
+      <Divider height={20} />
+      <Breadcrumbs
+        items={[{ text: "Stores" }, { text: "Products", disabled: true }]}
+      />
+      <Divider height={20} />
+      <Container>
+        <div className={styles.wrapper}>
+          <Heading
+            title={{ text: "Dashboard", tag: "h4" }}
+            content={{ text: "Take the Plunge into Solana-powered retail" }}
+          />
+          <div className={styles.wallet}>
+            {!session && <WalletMultiButtonDynamic />}
+            {session?.user && <WalletDisconnectButton onClick={signOut} />}
+          </div>
+        </div>
+        <Divider height={40} />
+        <div className={styles.actionCards}>
+          {actionCardsData?.map((item, index) => (
+            <ActionCard key={index} {...item} />
+          ))}
+        </div>
+        <Divider height={80} />
+        <Heading
+          title={{ text: "Your stores", tag: "h5" }}
+          content={{
+            text: "Create your store and astart adding products",
+            size: "xs",
+          }}
+        />
+        <Divider height={40} />
+        <Stores items={storesData} types={storeTypes} user={userData} />
+      </Container>
       <Divider height={100} />
     </div>
   );

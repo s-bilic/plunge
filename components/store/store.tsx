@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./store.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content } from "@ui";
+import { Tile, Title, Content, Button } from "@ui";
 import { Icon } from "@helper";
 
 const cx = classNames.bind(styles);
@@ -13,9 +13,18 @@ interface IProps {
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
+  button?: React.ComponentProps<typeof Button>;
 }
 
-const Store = ({ className, href, index, title, content, icon }: IProps) => {
+const Store = ({
+  className,
+  href,
+  index,
+  title,
+  content,
+  icon,
+  button,
+}: IProps) => {
   const classes = cx(
     {
       store: true,
@@ -24,17 +33,13 @@ const Store = ({ className, href, index, title, content, icon }: IProps) => {
   );
 
   return (
-    <Tile href={href} className={classes} boxShadow borderRadius>
-      {icon && <Icon size={"xs"} {...icon} />}
-      {index && (
-        <Content
-          className={styles.index}
-          size={"xs"}
-          text={`${index}`}
-          color={"dark"}
-          emphasize
-        />
-      )}
+    <Tile href={href} className={classes} borderRadius>
+      <Button
+        className={styles.delete}
+        link
+        icon={{ name: "delete", size: "xxs" }}
+      />
+      {icon && <Icon size={"xs"} color={"energized"} {...icon} />}
       <div className={styles.wrapper}>
         {title && <Title tag={"h6"} {...title} />}
         {content && <Content size={"xs"} color={"stable-700"} {...content} />}

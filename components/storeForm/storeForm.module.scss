@@ -17,3 +17,13 @@
 .remove {
   padding: var(--spacing-s) var(--spacing-xs);
 }
+
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.badge {
+  padding: 10px 15px;
+}

@@ -63,6 +63,12 @@
   }
 }
 
+.icon-energized {
+  path {
+    fill: rgba(var(--color-energized));
+  }
+}
+
 .icon-balanced {
   svg {
     color: rgba(var(--color-balanced)); ;

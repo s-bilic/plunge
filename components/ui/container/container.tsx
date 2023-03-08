@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const Container = ({ children, className }: IProps) => {
-  let classes = cx({ container: true }, className);
+  const classes = cx({ container: true }, className);
 
   return <div className={classes}>{children}</div>;
 };

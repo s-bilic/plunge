@@ -68,7 +68,13 @@ const Tile = ({
     </div>
   );
 
-  return href ? <Link href={href}>{CustomComponent}</Link> : CustomComponent;
+  return href ? (
+    <Link href={href} className={styles.link}>
+      {CustomComponent}
+    </Link>
+  ) : (
+    CustomComponent
+  );
 };
 
 export default Tile;

@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-s) var(--spacing-xl);
-  border-radius: var(--spacing-xs);
+  border-radius: var(--radius-m);
   border: none;
   font-weight: 500;
   margin-left: var(--spacing-xs);
@@ -28,7 +28,7 @@
 }
 
 .outline {
-  border: solid 2px;
+  border: solid 1px rgba(var(--color-stable), 1);
 }
 
 .boxShadow {

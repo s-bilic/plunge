@@ -5,13 +5,7 @@
   padding: var(--spacing-s);
   border-radius: var(--spacing-xs);
   border: none;
-  margin-right: var(--spacing-xs);
-  margin-bottom: var(--spacing-xs);
-
-  &:last-of-type {
-    margin-right: 0;
-    margin-bottom: var(--spacing-xs);
-  }
+  padding: 5px 15px;
 
   &:hover {
     cursor: pointer;
@@ -44,4 +38,12 @@
 
 .active {
   box-shadow: 0 0 0 2px rgba(var(--color-energized), 1);
+}
+
+.content {
+  line-height: 1;
+}
+
+.lighten {
+  background: rgba(var(--color-royal), 0.2);
 }
