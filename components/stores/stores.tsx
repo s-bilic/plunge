@@ -36,6 +36,12 @@ const Stores = ({ className, items, types, user }: IProps) => {
     router.refresh();
   };
 
+  const deleteStore = async (id: number) => {
+    await supabase.from("stores").delete().eq("store_id", id);
+
+    router.refresh();
+  };
+
   const handleForm = () => {
     setActive(!active);
 
@@ -56,6 +62,7 @@ const Stores = ({ className, items, types, user }: IProps) => {
             content={{ text: `${5} products` }}
             title={{ text: item?.store_name }}
             icon={{ name: item?.store_name }}
+            button={{ onClick: () => deleteStore(item?.store_id) }}
             {...item}
           />
           {data.length - 1 === index && (

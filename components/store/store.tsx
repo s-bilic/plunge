@@ -33,18 +33,23 @@ const Store = ({
   );
 
   return (
-    <Tile href={href} className={classes} borderRadius>
-      <Button
-        className={styles.delete}
-        link
-        icon={{ name: "delete", size: "xxs" }}
-      />
-      {icon && <Icon size={"xs"} color={"energized"} {...icon} />}
-      <div className={styles.wrapper}>
-        {title && <Title tag={"h6"} {...title} />}
-        {content && <Content size={"xs"} color={"stable-700"} {...content} />}
-      </div>
-    </Tile>
+    <div className={classes}>
+      {button && (
+        <Button
+          className={styles.delete}
+          link
+          icon={{ name: "delete", size: "xxs" }}
+          {...button}
+        />
+      )}
+      <Tile href={href} className={styles.tile} borderRadius>
+        {icon && <Icon size={"xs"} color={"energized"} {...icon} />}
+        <div className={styles.wrapper}>
+          {title && <Title tag={"h6"} {...title} />}
+          {content && <Content size={"xs"} color={"stable-700"} {...content} />}
+        </div>
+      </Tile>
+    </div>
   );
 };
 

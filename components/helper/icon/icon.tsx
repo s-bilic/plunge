@@ -29,6 +29,7 @@ const Icon = ({
       icon: true,
       [`icon-${size}`]: size,
       [`icon-${color}`]: color,
+      stroke,
     },
     className
   );

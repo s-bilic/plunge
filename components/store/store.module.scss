@@ -1,5 +1,8 @@
 .store {
   position: relative;
+}
+
+.tile {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -17,4 +20,5 @@
   top: 0;
   right: 0;
   padding: var(--spacing-s);
+  z-index: 1;
 }

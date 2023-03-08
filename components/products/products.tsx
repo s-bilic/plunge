@@ -47,7 +47,7 @@ const Products = ({
   const addData = async () => {
     await supabase.from("products").insert({
       product_name: formData[0]?.value,
-      product_price: formData[1]?.value,
+      product_price: Number(formData[1]?.value),
       product_icon: iconData,
       store_id: storeId,
     });
@@ -68,8 +68,6 @@ const Products = ({
       onChange(selected);
     }
   }, [selected]);
-
-  console.log(admin);
 
   return (
     <div className={classes}>

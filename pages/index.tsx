@@ -119,8 +119,16 @@ const Home = ({ storesData, userData, session }) => {
         <Heading
           title={{ text: "Your stores", tag: "h5" }}
           content={{
-            text: "Create your store and start adding products",
+            text: userData.length
+              ? "Create your store and start adding products"
+              : "Connect your wallet to start",
             size: "xs",
+          }}
+          icon={{
+            name: userData.length ? false : "alert-square",
+            size: "xxs",
+            color: "energized",
+            stroke: true,
           }}
         />
         <Divider height={40} />

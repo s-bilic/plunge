@@ -67,11 +67,18 @@
   path {
     fill: rgba(var(--color-energized));
   }
+
+  &.stroke {
+    path {
+      fill: inherit;
+      stroke: rgba(var(--color-energized));
+    }
+  }
 }
 
 .icon-balanced {
   svg {
-    color: rgba(var(--color-balanced)); ;
+    color: rgba(var(--color-balanced));
     stroke: rgba(var(--color-balanced));
   }
 }
