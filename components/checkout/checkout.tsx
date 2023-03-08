@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styles from "./checkout.module.scss";
 import classNames from "classnames/bind";
+import { useConnection } from "@solana/wallet-adapter-react";
 import { Tile, Title, Content, Card, Button } from "@ui";
 import { Icon } from "@helper";
 import { ProductOverview, Payment } from "@components";
+import {
+  findReference,
+  FindReferenceError,
+  validateTransfer,
+} from "@solana/pay";
+import { PublicKey, Keypair } from "@solana/web3.js";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +22,10 @@ interface IProps {
 }
 
 const Checkout = ({ className, items, receiverAddress }: IProps) => {
+  const [paymentStatus, setPaymentStatus] = useState("");
+  const { connection } = useConnection();
+  const reference = new Keypair().publicKey;
+  // const { validatePayment } = usePayment();
   const [countData, setCountData] = useState(new Array(items?.length).fill(1));
   const [totalPrice, setTotalPrice] = useState(0);
   const [active, setActive] = useState(false);
@@ -41,7 +53,66 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
 
   useEffect(() => {
     setActive(false);
+    // setPaymentStatus("");
   }, [totalPrice]);
+
+  // if (paymentStatus !== "validated") {
+  //   toast("Wow so easy!");
+  // }
+
+  useEffect(() => {
+    let interval: number;
+    if (active) {
+      let paymentStatus;
+      let signatureInfo;
+
+      const checkTransaction = async () => {
+        console.count("Checking for transaction...");
+        try {
+          // Only continues if reference has been found
+          signatureInfo = await findReference(connection, reference, {
+            finality: "confirmed",
+          });
+          console.log("\n 🖌  Signature found: ", signatureInfo.signature);
+          clearInterval(interval);
+          validatePayment(signatureInfo);
+        } catch (error: any) {
+          if (!(error instanceof FindReferenceError)) {
+            console.error(error);
+            clearInterval(interval);
+          }
+        }
+      };
+
+      const validatePayment = async (signatureInfo) => {
+        // Update payment status
+        setPaymentStatus("confirmed");
+        try {
+          await toast.promise(
+            validateTransfer(connection, signatureInfo.signature, {
+              recipient: new PublicKey(receiverAddress),
+              totalPrice,
+            }),
+            {
+              pending: "Processing",
+              success: "Payment received!",
+            }
+          );
+
+          // Update payment status
+          setPaymentStatus("validated");
+          console.log("✅ Payment validated");
+          console.log("📦 Ship order to customer");
+        } catch (error) {
+          console.error("❌ Payment failed", error);
+        }
+      };
+
+      interval = setInterval(checkTransaction, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [active]);
 
   return (
     <Card className={classes} color={"light"} borderRadius outline>
@@ -73,14 +144,17 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
         </div>
         {active && receiverAddress && (
           <div className={styles.payment}>
-            <Payment
-              receiverAddress={receiverAddress}
-              paymentAmount={totalPrice}
-            />
+            {paymentStatus !== "validated" && (
+              <Payment
+                receiverAddress={receiverAddress}
+                reference={reference}
+                paymentAmount={totalPrice}
+              />
+            )}
           </div>
         )}
         <Button
-          onClick={(e) => setActive(e)}
+          onClick={() => setActive(true)}
           className={styles.button}
           text={"Pay"}
           color={"royal"}

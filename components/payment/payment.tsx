@@ -1,16 +1,20 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { PublicKey, Keypair } from "@solana/web3.js";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { encodeURL, createQR } from "@solana/pay";
+import { useConnection } from "@solana/wallet-adapter-react";
+import {
+  encodeURL,
+  createQR,
+  findReference,
+  FindReferenceError,
+  validateTransfer,
+} from "@solana/pay";
 import BigNumber from "bignumber.js";
 
-const Payment = ({ receiverAddress, paymentAmount }) => {
+const Payment = ({ receiverAddress, paymentAmount, reference }) => {
   const ref: any = useRef();
-  // const wallet = useWallet();
   const recipient = new PublicKey(receiverAddress);
   const amount = new BigNumber(paymentAmount);
-  const reference = new Keypair().publicKey;
   const label = "label";
   const message = "Jungle Cats store - your order - #001234";
   const memo = "JC#4098";
