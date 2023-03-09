@@ -69,6 +69,7 @@ const Products = ({
     }
   }, [selected]);
 
+  console.log(iconData);
   return (
     <div className={classes}>
       {data?.map((item, index) => (
@@ -98,7 +99,9 @@ const Products = ({
                 <ProductForm
                   save={addData}
                   cancel={() => setActive(false)}
-                  button={{ text: "Add", onClick: addData }}
+                  disabled={
+                    !formData[0]?.value || !formData[1]?.value || !iconData
+                  }
                   form={{
                     onChange: (e) => setFormData(e),
                   }}
@@ -124,7 +127,7 @@ const Products = ({
         <ProductForm
           save={addData}
           cancel={() => setActive(false)}
-          button={{ text: "Add", onClick: addData }}
+          disabled={!formData[0]?.value || !formData[1]?.value || !iconData}
           form={{
             onChange: (e) => setFormData(e),
           }}

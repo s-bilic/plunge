@@ -23,6 +23,7 @@ interface IProps {
   onChange?: any;
   form?: any;
   button?: any;
+  disabled: boolean;
 }
 
 const ProductForm = ({
@@ -32,6 +33,7 @@ const ProductForm = ({
   cancel,
   form,
   iconPicker,
+  disabled,
 }: IProps) => {
   const [data, setData] = useState([
     {
@@ -63,6 +65,7 @@ const ProductForm = ({
               text: "Add",
               grow: true,
               onClick: save,
+              disabled: disabled,
             },
             {
               text: "Cancel",

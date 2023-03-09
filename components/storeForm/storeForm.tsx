@@ -12,9 +12,18 @@ interface IProps {
   save?: React.MouseEventHandler<HTMLButtonElement>;
   cancel?: React.MouseEventHandler<HTMLButtonElement>;
   onChange?: any;
+  disabled?: any;
 }
 
-const StoreForm = ({ className, types, save, cancel, onChange }: IProps) => {
+const StoreForm = ({
+  className,
+  types,
+  save,
+  cancel,
+  onChange,
+  disabled,
+  data,
+}: IProps) => {
   const [count, setCount] = useState(0);
   const [type, setType] = useState("");
   const classes = cx(
@@ -53,6 +62,7 @@ const StoreForm = ({ className, types, save, cancel, onChange }: IProps) => {
               text: "Continue",
               grow: true,
               onClick: save,
+              disabled: disabled,
             },
             {
               text: "Cancel",
@@ -64,19 +74,25 @@ const StoreForm = ({ className, types, save, cancel, onChange }: IProps) => {
           ],
         }}
       >
+        {console.log(data)}
         <div className={styles.types}>
           {count === 0 &&
-            types?.map((item, index) => (
-              <Badge
-                key={index}
-                className={styles.badge}
-                text={item}
-                textColor={"stable-700"}
-                active={type === item}
-                onClick={selectBadge}
-                outline
-              />
-            ))}
+            types?.map((item, index) => {
+              const isDisabled = data?.some((d) => d?.store_name === item);
+
+              return (
+                <Badge
+                  key={index}
+                  className={styles.badge}
+                  text={item}
+                  textColor={"stable-700"}
+                  active={type === item}
+                  onClick={selectBadge}
+                  outline
+                  disabled={isDisabled}
+                />
+              );
+            })}
         </div>
       </Tile>
     </div>
