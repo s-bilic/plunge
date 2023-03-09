@@ -6,7 +6,7 @@
   --color-positive: 41, 145, 250;
   --color-balanced: 82, 196, 26;
   --color-royal: 80, 69, 224;
-  --color-assertive: 166, 29, 35;
+  --color-assertive: 223, 15, 15;
   --color-energized: 249, 144, 0;
   --color-stable: 208, 208, 208;
   --color-stable-500: 148, 148, 154;
@@ -34,6 +34,7 @@
   --shadow-m: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   --global-width: 1200px;
+  --global: ;
 }
 
 * {
@@ -259,4 +260,9 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.ReactModal__Overlay  {
+  background-color: rgba(var(--color-dark), 0.5) !important;
+  z-index: 2;
 }

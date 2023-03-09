@@ -11,6 +11,7 @@ import Counter from "./counter/counter";
 import Heading from "./heading/heading";
 import Container from "./container/container";
 import Breadcrumbs from "./breadcrumbs/breadcrumbs";
+import Modal from "./modal/modal";
 
 export {
   Layout,
@@ -27,4 +28,5 @@ export {
   Heading,
   Container,
   Breadcrumbs,
+  Modal,
 };

@@ -1,0 +1,52 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  z-index: 999;
+}
+
+.wrapper {
+  background-color: rgba(var(--color-light), 1);
+  z-index: 999;
+  width: 400px;
+  height: auto;
+  border-radius: var(--radius-l);
+  border: solid 1px rgba(var(--color-stable), 1);
+  box-shadow: var(--shadow-m);
+  margin: var(--spacing-m);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  text-align: center;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+}
+
+.cancel {
+  margin-right: var(--spacing-xs);
+}

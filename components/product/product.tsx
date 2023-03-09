@@ -46,7 +46,7 @@ const Product = ({
         {title && <Content size={"xs"} emphasize {...title} />}
         <div className={styles.currency}>
           {content && (
-            <Content size={"s"} color={"dark"} emphasize {...content} />
+            <Content size={"xs"} color={"dark"} emphasize {...content} />
           )}
           <Icon className={styles.iconCurrency} name={"sol"} size={"xxxxs"} />
           {/* <Icon name={"usdc"} size={"xxxs"} /> */}

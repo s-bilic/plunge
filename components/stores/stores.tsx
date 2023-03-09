@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./stores.module.scss";
 import classNames from "classnames/bind";
-import { Button, Badge, Tile, Title, Content } from "@ui";
+import { Button, Badge, Tile, Title, Content, Modal } from "@ui";
 import { Store, StoreForm } from "@components";
 import { supabase } from "@utils";
 import { Icon } from "@helper";
@@ -17,6 +17,7 @@ interface IProps {
 
 const Stores = ({ className, items, types, user }: IProps) => {
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(items);
   const [active, setActive] = useState(false);
   const [type, setType] = useState("");
@@ -62,8 +63,25 @@ const Stores = ({ className, items, types, user }: IProps) => {
             content={{ text: `${5} products` }}
             title={{ text: item?.store_name }}
             icon={{ name: item?.store_name }}
-            button={{ onClick: () => deleteStore(item?.store_id) }}
+            button={{ onClick: () => setShowModal(true) }}
             {...item}
+          />
+          <Modal
+            isOpen={showModal}
+            header={{
+              title: { text: "Are you sure you want to delete this store?" },
+            }}
+            buttons={{
+              cancel: {
+                text: "Cancel",
+                onClick: () => setShowModal(false),
+              },
+              delete: {
+                text: "Delete",
+                onClick: () => deleteStore(item?.store_id),
+              },
+            }}
+            icon={{ name: "trash" }}
           />
           {data.length - 1 === index && (
             <>

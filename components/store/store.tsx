@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./store.module.scss";
 import classNames from "classnames/bind";
 import { Tile, Title, Content, Button } from "@ui";
@@ -14,6 +14,7 @@ interface IProps {
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
   button?: React.ComponentProps<typeof Button>;
+  confirm?: boolean;
 }
 
 const Store = ({
@@ -24,7 +25,9 @@ const Store = ({
   content,
   icon,
   button,
+  confirm,
 }: IProps) => {
+  const [active, setActive] = useState();
   const classes = cx(
     {
       store: true,
@@ -39,6 +42,7 @@ const Store = ({
           className={styles.delete}
           link
           icon={{ name: "delete", size: "xxs" }}
+          onClick={() => setActive(true)}
           {...button}
         />
       )}
