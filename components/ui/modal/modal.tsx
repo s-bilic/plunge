@@ -24,6 +24,7 @@ const Modal = ({
   buttons,
   icon,
   isOpen,
+  id,
 }: IProps) => {
   const classes = cx(
     {
@@ -33,7 +34,7 @@ const Modal = ({
   );
 
   return (
-    <ReactModal isOpen={isOpen} className={classes}>
+    <ReactModal id={id} isOpen={isOpen} className={classes}>
       <div className={styles.wrapper}>
         {header && (
           <div className={styles.header}>

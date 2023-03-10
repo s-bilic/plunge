@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./store.module.scss";
 import classNames from "classnames/bind";
 import { Tile, Title, Content, Button } from "@ui";
@@ -9,7 +9,6 @@ const cx = classNames.bind(styles);
 interface IProps {
   className?: string;
   href?: string;
-  index?: string;
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
@@ -20,14 +19,12 @@ interface IProps {
 const Store = ({
   className,
   href,
-  index,
   title,
   content,
   icon,
   button,
   confirm,
 }: IProps) => {
-  const [active, setActive] = useState();
   const classes = cx(
     {
       store: true,
@@ -42,7 +39,6 @@ const Store = ({
           className={styles.delete}
           link
           icon={{ name: "delete", size: "xxs" }}
-          onClick={() => setActive(true)}
           {...button}
         />
       )}

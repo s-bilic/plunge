@@ -159,6 +159,7 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
           text={"Pay"}
           color={"royal"}
           grow
+          disabled={totalPrice === 0}
         />
       </div>
     </Card>

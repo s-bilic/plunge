@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./product.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content } from "@ui";
+import { Tile, Title, Content, Button } from "@ui";
 import { Icon } from "@helper";
 
 const cx = classNames.bind(styles);
@@ -14,6 +14,7 @@ interface IProps {
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
   active?: boolean;
+  button?: React.ComponentProps<typeof Button>;
 }
 
 const Product = ({
@@ -23,6 +24,7 @@ const Product = ({
   content,
   icon,
   active,
+  button,
 }: IProps) => {
   const classes = cx(
     {
@@ -34,6 +36,14 @@ const Product = ({
 
   return (
     <div className={classes}>
+      {button && (
+        <Button
+          className={styles.delete}
+          link
+          icon={{ name: "delete", size: "xxs" }}
+          {...button}
+        />
+      )}
       <Tile
         onClick={onClick}
         className={styles.tile}

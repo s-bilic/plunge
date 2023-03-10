@@ -18,6 +18,7 @@ interface IProps {
 const Stores = ({ className, items, types, user }: IProps) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [data, setData] = useState(items);
   const [active, setActive] = useState(false);
   const [type, setType] = useState("");
@@ -43,6 +44,18 @@ const Stores = ({ className, items, types, user }: IProps) => {
     router.refresh();
   };
 
+  const handleDelete = (id) => {
+    setDeleteId(id);
+    setShowModal(true);
+  };
+
+  const handleModalDelete = () => {
+    if (deleteId) {
+      deleteStore(deleteId);
+      setShowModal(false);
+    }
+  };
+
   const handleForm = () => {
     setActive(!active);
 
@@ -53,35 +66,35 @@ const Stores = ({ className, items, types, user }: IProps) => {
 
   return (
     <div className={classes}>
+      <Modal
+        isOpen={showModal}
+        header={{
+          title: { text: "Are you sure you want to delete this store?" },
+        }}
+        buttons={{
+          cancel: {
+            text: "Cancel",
+            onClick: () => setShowModal(false),
+          },
+          delete: {
+            text: "Delete",
+            onClick: handleModalDelete,
+          },
+        }}
+        icon={{ name: "trash" }}
+      />
       {data?.map((item, index) => (
         <React.Fragment key={index}>
           <Store
-            index={`${index + 1}`}
             className={styles.store}
             href={`${user[0]?.user_address}/${item?.store_id}`}
             content={{ text: `${5} products` }}
             title={{ text: item?.store_name }}
             icon={{ name: item?.store_name }}
-            button={{ onClick: () => setShowModal(true) }}
+            button={{ onClick: () => handleDelete(item?.store_id) }}
             {...item}
           />
-          <Modal
-            isOpen={showModal}
-            header={{
-              title: { text: "Are you sure you want to delete this store?" },
-            }}
-            buttons={{
-              cancel: {
-                text: "Cancel",
-                onClick: () => setShowModal(false),
-              },
-              delete: {
-                text: "Delete",
-                onClick: () => deleteStore(item?.store_id),
-              },
-            }}
-            icon={{ name: "trash" }}
-          />
+
           {data.length - 1 === index && (
             <>
               {!active && data?.length < 14 && (

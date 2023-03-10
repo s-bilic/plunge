@@ -27,6 +27,7 @@ const Products = ({
   admin,
 }: IProps) => {
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(items);
   const [formData, setFormData] = useState("");
   const [iconData, setIconData] = useState("");
@@ -55,6 +56,12 @@ const Products = ({
     router.refresh();
   };
 
+  const deleteProduct = async (id: number) => {
+    await supabase.from("products").delete().eq("product_id", id);
+    console.log(id);
+    // router.refresh();
+  };
+
   const handleProductToggle = (product: any) => {
     if (selected.includes(product)) {
       setSelected(selected.filter((p) => p !== product));
@@ -69,7 +76,7 @@ const Products = ({
     }
   }, [selected]);
 
-  console.log(iconData);
+  console.log(data);
   return (
     <div className={classes}>
       {data?.map((item, index) => (
@@ -83,7 +90,9 @@ const Products = ({
             active={selected.some(
               (selectedItem) => selectedItem.product_id === item.product_id
             )}
+            button={{ onClick: () => deleteProduct(item?.product_id) }}
           />
+          {console.log(item?.product_id)}
           {data?.length - 1 === index && (
             <>
               {!active && admin && (
