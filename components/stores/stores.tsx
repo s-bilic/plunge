@@ -94,7 +94,6 @@ const Stores = ({ className, items, types, user }: IProps) => {
             button={{ onClick: () => handleDelete(item?.store_id) }}
             {...item}
           />
-
           {data.length - 1 === index && (
             <>
               {!active && data?.length < 14 && (

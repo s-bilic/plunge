@@ -58,8 +58,8 @@ const Products = ({
 
   const deleteProduct = async (id: number) => {
     await supabase.from("products").delete().eq("product_id", id);
-    console.log(id);
-    // router.refresh();
+
+    router.refresh();
   };
 
   const handleProductToggle = (product: any) => {
