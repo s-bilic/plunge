@@ -9,6 +9,7 @@ import styles from "../../styles/store.module.scss";
 export default function StorePage({
   productsData,
   storeId,
+  userId,
   storeAddress,
   admin,
 }) {
@@ -38,7 +39,12 @@ export default function StorePage({
             />
           </div>
         </Container>
-        <Checkout items={selectedData} receiverAddress={storeAddress} />
+        <Checkout
+          items={selectedData}
+          receiverAddress={storeAddress}
+          storeId={storeId}
+          userId={userId}
+        />
       </div>
     </div>
   );
@@ -51,6 +57,11 @@ export async function getServerSideProps(context: any) {
 
   const { data: products } = await supabase
     .from("products")
+    .select()
+    .eq("store_id", id);
+
+  const { data: stores } = await supabase
+    .from("stores")
     .select()
     .eq("store_id", id);
 
@@ -68,6 +79,7 @@ export async function getServerSideProps(context: any) {
       storeAddress,
       admin: session?.user?.name === storeAddress ? true : false,
       storeId: id,
+      userId: stores[0]?.user_id,
       productsData: products || [],
     },
   };

@@ -5,6 +5,7 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { Tile, Title, Content, Card, Button } from "@ui";
 import { Icon } from "@helper";
 import { ProductOverview, Payment } from "@components";
+import { supabase } from "@utils";
 import {
   findReference,
   FindReferenceError,
@@ -12,6 +13,7 @@ import {
 } from "@solana/pay";
 import { PublicKey, Keypair } from "@solana/web3.js";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 const cx = classNames.bind(styles);
 
@@ -21,14 +23,21 @@ interface IProps {
   receiverAddress: any;
 }
 
-const Checkout = ({ className, items, receiverAddress }: IProps) => {
+const Checkout = ({
+  className,
+  items,
+  receiverAddress,
+  storeId,
+  userId,
+}: IProps) => {
   const [paymentStatus, setPaymentStatus] = useState("");
   const { connection } = useConnection();
   const reference = new Keypair().publicKey;
-  // const { validatePayment } = usePayment();
   const [countData, setCountData] = useState(new Array(items?.length).fill(1));
   const [totalPrice, setTotalPrice] = useState(0);
   const [active, setActive] = useState(false);
+  const orderId = uuidv4();
+
   const classes = cx(
     {
       checkout: true,
@@ -53,17 +62,13 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
 
   useEffect(() => {
     setActive(false);
+    setPaymentStatus("");
     // setPaymentStatus("");
   }, [totalPrice]);
-
-  // if (paymentStatus !== "validated") {
-  //   toast("Wow so easy!");
-  // }
 
   useEffect(() => {
     let interval: number;
     if (active) {
-      let paymentStatus;
       let signatureInfo;
 
       const checkTransaction = async () => {
@@ -89,11 +94,12 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
         setPaymentStatus("confirmed");
         try {
           await toast.promise(
-            validateTransfer(connection, signatureInfo.signature, {
+            validateTransfer(connection, signatureInfo?.signature, {
               recipient: new PublicKey(receiverAddress),
               totalPrice,
             }),
             {
+              error: "Something went wrong",
               pending: "Processing",
               success: "Payment received!",
             }
@@ -101,9 +107,28 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
 
           // Update payment status
           setPaymentStatus("validated");
+
+          await supabase.from("transactions").insert({
+            transaction_order_id: orderId,
+            transaction_signature: signatureInfo?.signature,
+            transaction_reference: reference?.toBase58(),
+            transaction_subtotal: totalPrice,
+            user_id: userId,
+            store_id: storeId,
+          });
+
+          // const transactionDetails = items?.map((item) => ({
+          //   transaction_id: transaction?.transaction_id,
+          //   product_id: item?.product_id,
+          //   transaction_detail_quantity: 1,
+          //   transaction_detail_price: item?.product_price,
+          // }));
+
+          // await supabase.from("transaction_details").insert(transactionDetails);
+
           console.log("✅ Payment validated");
-          console.log("📦 Ship order to customer");
         } catch (error) {
+          setPaymentStatus("");
           console.error("❌ Payment failed", error);
         }
       };
@@ -113,6 +138,8 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
 
     return () => clearInterval(interval);
   }, [active]);
+
+  console.log(paymentStatus);
 
   return (
     <Card className={classes} color={"light"} borderRadius outline>
@@ -149,6 +176,8 @@ const Checkout = ({ className, items, receiverAddress }: IProps) => {
                 receiverAddress={receiverAddress}
                 reference={reference}
                 paymentAmount={totalPrice}
+                message={"order-id: " + orderId}
+                memo={orderId}
               />
             )}
           </div>

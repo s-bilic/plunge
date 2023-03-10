@@ -11,18 +11,21 @@ import {
 } from "@solana/pay";
 import BigNumber from "bignumber.js";
 
-const Payment = ({ receiverAddress, paymentAmount, reference }) => {
+const Payment = ({
+  receiverAddress,
+  paymentAmount,
+  reference,
+  message,
+  memo,
+}) => {
   const ref: any = useRef();
   const recipient = new PublicKey(receiverAddress);
   const amount = new BigNumber(paymentAmount);
-  const label = "label";
-  const message = "Jungle Cats store - your order - #001234";
-  const memo = "JC#4098";
-
-  // console.log(wallet.publicKey?.toBase58());
+  const label = "Plunge store payment";
 
   const url = encodeURL({ recipient, amount, reference, label, message, memo });
-
+  console.log(memo);
+  console.log(message);
   useEffect(() => {
     const qrCode = createQR(url, 350);
     qrCode.append(ref?.current);
