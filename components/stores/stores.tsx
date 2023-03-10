@@ -32,7 +32,11 @@ const Stores = ({ className, items, types, user }: IProps) => {
   const addStore = async () => {
     await supabase
       .from("stores")
-      .insert({ user_id: user[0]?.user_id, store_name: type })
+      .insert({
+        user_id: user[0]?.user_id,
+        user_address: user[0]?.user_address,
+        store_name: type?.toLowerCase(),
+      })
       .select();
 
     router.refresh();
@@ -87,7 +91,7 @@ const Stores = ({ className, items, types, user }: IProps) => {
         <React.Fragment key={index}>
           <Store
             className={styles.store}
-            href={`${user[0]?.user_address}/${item?.store_id}`}
+            href={`${user[0]?.user_address}/${item?.store_name}`}
             content={{ text: `${5} products` }}
             title={{ text: item?.store_name }}
             icon={{ name: item?.store_name }}

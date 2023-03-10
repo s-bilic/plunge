@@ -25,6 +25,7 @@ const Product = ({
   icon,
   active,
   button,
+  admin,
 }: IProps) => {
   const classes = cx(
     {
@@ -36,7 +37,7 @@ const Product = ({
 
   return (
     <div className={classes}>
-      {button && (
+      {button && admin && (
         <Button
           className={styles.delete}
           link

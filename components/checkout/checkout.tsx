@@ -11,9 +11,10 @@ import {
   FindReferenceError,
   validateTransfer,
 } from "@solana/pay";
-import { PublicKey, Keypair } from "@solana/web3.js";
+import { PublicKey, Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import BigNumber from "bignumber.js";
 
 const cx = classNames.bind(styles);
 
@@ -23,18 +24,12 @@ interface IProps {
   receiverAddress: any;
 }
 
-const Checkout = ({
-  className,
-  items,
-  receiverAddress,
-  storeId,
-  userId,
-}: IProps) => {
+const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
   const [paymentStatus, setPaymentStatus] = useState("");
   const { connection } = useConnection();
   const reference = new Keypair().publicKey;
   const [countData, setCountData] = useState(new Array(items?.length).fill(1));
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState();
   const [active, setActive] = useState(false);
   const orderId = uuidv4();
 
@@ -51,13 +46,23 @@ const Checkout = ({
     setCountData(newCounts);
   };
 
+  console.log(countData);
+  // Creates new array of selected items with quantity for each selected product.
+  const transformedItems = items?.map((item, index) => ({
+    ...item,
+    product_quantity: countData[index],
+  }));
+
   useEffect(() => {
     const newTotalPrice = items?.reduce(
       (acc, item, i) => acc + item.product_price * countData[i],
       0
     );
 
-    setTotalPrice(newTotalPrice);
+    const totalPrice = new BigNumber(newTotalPrice);
+    const roundedTotalPrice = totalPrice.toFixed(3);
+
+    setTotalPrice(roundedTotalPrice);
   }, [items, countData]);
 
   useEffect(() => {
@@ -109,22 +114,22 @@ const Checkout = ({
           setPaymentStatus("validated");
 
           await supabase.from("transactions").insert({
-            transaction_order_id: orderId,
+            transaction_id: orderId,
             transaction_signature: signatureInfo?.signature,
             transaction_reference: reference?.toBase58(),
             transaction_subtotal: totalPrice,
-            user_id: userId,
-            store_id: storeId,
+            user_id: store?.user_id,
+            store_id: store?.store_id,
           });
 
-          // const transactionDetails = items?.map((item) => ({
-          //   transaction_id: transaction?.transaction_id,
-          //   product_id: item?.product_id,
-          //   transaction_detail_quantity: 1,
-          //   transaction_detail_price: item?.product_price,
-          // }));
+          const transactionDetails = transformedItems?.map((item) => ({
+            transaction_id: orderId,
+            product_id: item?.product_id,
+            transaction_detail_quantity: item?.product_quantity,
+            transaction_detail_price: item?.product_price,
+          }));
 
-          // await supabase.from("transaction_details").insert(transactionDetails);
+          await supabase.from("transaction_details").insert(transactionDetails);
 
           console.log("✅ Payment validated");
         } catch (error) {
@@ -138,8 +143,6 @@ const Checkout = ({
 
     return () => clearInterval(interval);
   }, [active]);
-
-  console.log(paymentStatus);
 
   return (
     <Card className={classes} color={"light"} borderRadius outline>
@@ -188,7 +191,7 @@ const Checkout = ({
           text={"Pay"}
           color={"royal"}
           grow
-          disabled={totalPrice === 0}
+          disabled={totalPrice === 0 || active}
         />
       </div>
     </Card>

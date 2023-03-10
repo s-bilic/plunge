@@ -78,7 +78,9 @@ const StoreForm = ({
         <div className={styles.types}>
           {count === 0 &&
             types?.map((item, index) => {
-              const isDisabled = data?.some((d) => d?.store_name === item);
+              const isDisabled = data?.some(
+                (d) => d?.store_name === item?.toLowerCase()
+              );
 
               return (
                 <Badge

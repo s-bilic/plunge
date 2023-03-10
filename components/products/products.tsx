@@ -18,17 +18,10 @@ interface IProps {
   admin: boolean;
 }
 
-const Products = ({
-  className,
-  items,
-  stores,
-  storeId,
-  onChange,
-  admin,
-}: IProps) => {
+const Products = ({ className, items, store, onChange, admin }: IProps) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
-  const [data, setData] = useState(items);
+
   const [formData, setFormData] = useState("");
   const [iconData, setIconData] = useState("");
   const [active, setActive] = useState(false);
@@ -45,12 +38,14 @@ const Products = ({
     setActive(!active);
   };
 
+  console.log(items);
+
   const addData = async () => {
     await supabase.from("products").insert({
       product_name: formData[0]?.value,
       product_price: Number(formData[1]?.value),
       product_icon: iconData,
-      store_id: storeId,
+      store_id: store?.store_id,
     });
 
     router.refresh();
@@ -76,10 +71,9 @@ const Products = ({
     }
   }, [selected]);
 
-  console.log(data);
   return (
     <div className={classes}>
-      {data?.map((item, index) => (
+      {items?.map((item, index) => (
         <React.Fragment key={index}>
           <Product
             onClick={() => handleProductToggle(item)}
@@ -91,9 +85,10 @@ const Products = ({
               (selectedItem) => selectedItem.product_id === item.product_id
             )}
             button={{ onClick: () => deleteProduct(item?.product_id) }}
+            admin={admin}
           />
           {console.log(item?.product_id)}
-          {data?.length - 1 === index && (
+          {items?.length - 1 === index && (
             <>
               {!active && admin && (
                 <Button
@@ -123,7 +118,7 @@ const Products = ({
           )}
         </React.Fragment>
       ))}
-      {!active && !data?.length && admin && (
+      {!active && !items?.length && admin && (
         <Button
           onClick={handleForm}
           className={styles.button}
@@ -132,7 +127,7 @@ const Products = ({
           outline
         />
       )}
-      {active && !data?.length && (
+      {active && !items?.length && (
         <ProductForm
           save={addData}
           cancel={() => setActive(false)}
