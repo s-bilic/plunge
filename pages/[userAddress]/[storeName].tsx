@@ -1,19 +1,51 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "@utils";
-import { Title, Heading, Container, Breadcrumbs } from "@ui";
+import { Title, Heading, Container, Breadcrumbs, Chart } from "@ui";
 import { Divider } from "@helper";
 import { Products, Checkout, Transactions } from "@components";
 import { getSession } from "next-auth/react";
 import styles from "../../styles/store.module.scss";
+
 export default function StorePage({
   session,
   store,
   products,
   transactions,
   admin,
+  sales,
 }) {
   const [selectedData, setSelectedData] = useState();
+
+  const chartData = {
+    series: [
+      {
+        name: "Sales",
+        data: sales?.map((item) => item.total_sales),
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "datetime",
+        categories: sales?.map((item) => item.date),
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
 
   return (
     <div className={styles.store}>
@@ -45,20 +77,35 @@ export default function StorePage({
           store={store}
         />
       </div>
-      <Divider height={20} />
-      {admin && (
-        <>
-          <Heading
-            title={{ text: "Recent transactions", tag: "h5" }}
-            content={{
-              text: "Track your order id on-chain",
-              size: "xs",
-            }}
-          />
-          <Divider height={20} />
-          <Transactions items={transactions} />
-        </>
-      )}
+      <Divider height={40} />
+      <div className={styles.analytics}>
+        {admin && (
+          <>
+            <div className={styles.transactions}>
+              <Heading
+                title={{ text: "Recent transactions", tag: "h5" }}
+                content={{
+                  text: "Track your order id on-chain",
+                  size: "xs",
+                }}
+              />
+              <Divider height={40} />
+              <Transactions items={transactions} />
+            </div>
+            <div>
+              <Heading
+                title={{ text: "Daily sales", tag: "h5" }}
+                content={{
+                  text: "Overview of daily amount sold",
+                  size: "xs",
+                }}
+              />
+              <Divider height={40} />
+              <Chart type={"area"} width={500} height={320} {...chartData} />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
@@ -99,14 +146,15 @@ export async function getServerSideProps(context: any) {
     .order("created_at", { ascending: false })
     .eq("store_id", store[0]?.store_id);
 
-  console.log(transactions);
-
+  const { data: dailySales } = await supabase.from("daily_sales").select("*");
+  console.log(dailySales);
   return {
     props: {
       session: session,
       store: store[0] || null,
       products: products || null,
       transactions: transactions || null,
+      sales: dailySales || null,
       admin: admin,
     },
   };

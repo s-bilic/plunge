@@ -16,3 +16,12 @@
     flex-direction: row;
   }
 }
+
+.analytics {
+  display: flex;
+  gap: var(--spacing-xxl);
+}
+
+.transactions {
+  width: 100%;
+}

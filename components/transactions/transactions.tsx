@@ -33,8 +33,6 @@ const Transactions = ({ className, items }: IProps) => {
             year: "numeric",
           });
 
-          console.log(date); // Output the Date object to the console for debugging
-          console.log(formattedDate); // Output the formatted date to the console for debugging
           return (
             <div key={index} className={styles.item}>
               {item?.transaction_subtotal && (

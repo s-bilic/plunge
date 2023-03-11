@@ -12,6 +12,7 @@ import Heading from "./heading/heading";
 import Container from "./container/container";
 import Breadcrumbs from "./breadcrumbs/breadcrumbs";
 import Modal from "./modal/modal";
+import Chart from "./chart/chart";
 
 export {
   Layout,
@@ -29,4 +30,5 @@ export {
   Container,
   Breadcrumbs,
   Modal,
+  Chart,
 };
