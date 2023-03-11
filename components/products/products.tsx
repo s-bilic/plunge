@@ -38,8 +38,6 @@ const Products = ({ className, items, store, onChange, admin }: IProps) => {
     setActive(!active);
   };
 
-  console.log(items);
-
   const addData = async () => {
     await supabase.from("products").insert({
       product_name: formData[0]?.value,
@@ -87,7 +85,6 @@ const Products = ({ className, items, store, onChange, admin }: IProps) => {
             button={{ onClick: () => deleteProduct(item?.product_id) }}
             admin={admin}
           />
-          {console.log(item?.product_id)}
           {items?.length - 1 === index && (
             <>
               {!active && admin && (

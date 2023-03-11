@@ -151,8 +151,6 @@ export async function getServerSideProps(context: any) {
     .from("stores")
     .select()
     .eq("user_id", user[0]?.user_id);
-
-  console.log(stores, "stores");
   return {
     props: {
       session,

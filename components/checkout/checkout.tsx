@@ -46,7 +46,6 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
     setCountData(newCounts);
   };
 
-  console.log(countData);
   // Creates new array of selected items with quantity for each selected product.
   const transformedItems = items?.map((item, index) => ({
     ...item,

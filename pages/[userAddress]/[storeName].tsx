@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { supabase } from "@utils";
 import { Title, Heading, Container, Breadcrumbs, Chart } from "@ui";
 import { Divider } from "@helper";
-import { Products, Checkout, Transactions } from "@components";
+import { Products, Checkout, Transactions, TotalCard } from "@components";
 import { getSession } from "next-auth/react";
 import styles from "../../styles/store.module.scss";
 
@@ -13,7 +13,8 @@ export default function StorePage({
   products,
   transactions,
   admin,
-  sales,
+  dailySales,
+  totalSales,
 }) {
   const [selectedData, setSelectedData] = useState();
 
@@ -21,10 +22,11 @@ export default function StorePage({
     series: [
       {
         name: "Sales",
-        data: sales?.map((item) => item.total_sales),
+        data: dailySales?.map((item) => item.total),
       },
     ],
     options: {
+      colors: ["#512da8"],
       chart: {
         height: 350,
         type: "area",
@@ -37,7 +39,7 @@ export default function StorePage({
       },
       xaxis: {
         type: "datetime",
-        categories: sales?.map((item) => item.date),
+        categories: dailySales?.map((item) => item.transaction_date),
       },
       tooltip: {
         x: {
@@ -93,6 +95,14 @@ export default function StorePage({
               <Transactions items={transactions} />
             </div>
             <div>
+              {/* <Heading
+                title={{ text: "Total earned", tag: "h5" }}
+                content={{
+                  text: "Overview of the total amount sold",
+                  size: "xs",
+                }}
+              /> */}
+
               <Heading
                 title={{ text: "Daily sales", tag: "h5" }}
                 content={{
@@ -101,7 +111,20 @@ export default function StorePage({
                 }}
               />
               <Divider height={40} />
-              <Chart type={"area"} width={500} height={320} {...chartData} />
+              <TotalCard
+                title={{ text: totalSales || 0 }}
+                content={{ text: "Total revenue" }}
+                icon={{ name: "earn" }}
+                currency={{ name: "sol" }}
+              />
+              <Chart
+                className={styles.chart}
+                type={"area"}
+                width={500}
+                height={320}
+                {...chartData}
+              />
+              <Divider height={40} />
             </div>
           </>
         )}
@@ -120,7 +143,7 @@ export async function getServerSideProps(context: any) {
   const admin = sessionAddress === userAddress;
 
   // fetch stores that match userAddress + storeName in params
-  const { data: store, error } = await supabase
+  const { data: store } = await supabase
     .from("stores")
     .select()
     .eq("user_address", userAddress)
@@ -146,15 +169,25 @@ export async function getServerSideProps(context: any) {
     .order("created_at", { ascending: false })
     .eq("store_id", store[0]?.store_id);
 
-  const { data: dailySales } = await supabase.from("daily_sales").select("*");
-  console.log(dailySales);
+  let { data: dailySales } = await supabase.rpc(
+    "get_daily_transaction_totals",
+    {
+      store_id: store[0]?.store_id,
+    }
+  );
+
+  let { data: totalSales } = await supabase.rpc("get_transactions_total", {
+    store_id: store[0]?.store_id,
+  });
+
   return {
     props: {
       session: session,
       store: store[0] || null,
       products: products || null,
       transactions: transactions || null,
-      sales: dailySales || null,
+      dailySales: dailySales || null,
+      totalSales: totalSales,
       admin: admin,
     },
   };

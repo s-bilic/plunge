@@ -1,0 +1,26 @@
+.totalCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between ;
+  border: solid 1px rgba(var(--color-stable), 1);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+}
+
+.icon {
+  background: rgba(var(--color-royal), 0.2);
+  border-radius: 100%;
+  padding: var(--spacing-s);
+}
+
+.currency {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+}

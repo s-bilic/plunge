@@ -10,7 +10,7 @@ import Checkout from "./checkout/checkout";
 import ProductOverview from "./productOverview/productOverview";
 import ActionCard from "./actionCard/actionCard";
 import Transactions from "./transactions/transactions";
-
+import TotalCard from "./totalCard/totalCard";
 export {
   Store,
   StoreForm,
@@ -24,4 +24,5 @@ export {
   ProductOverview,
   ActionCard,
   Transactions,
+  TotalCard,
 };
