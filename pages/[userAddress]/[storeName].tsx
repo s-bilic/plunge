@@ -3,10 +3,16 @@ import { useRouter } from "next/router";
 import { supabase } from "@utils";
 import { Title, Heading, Container, Breadcrumbs } from "@ui";
 import { Divider } from "@helper";
-import { Products, Checkout } from "@components";
+import { Products, Checkout, Transactions } from "@components";
 import { getSession } from "next-auth/react";
 import styles from "../../styles/store.module.scss";
-export default function StorePage({ session, store, products, admin }) {
+export default function StorePage({
+  session,
+  store,
+  products,
+  transactions,
+  admin,
+}) {
   const [selectedData, setSelectedData] = useState();
 
   return (
@@ -39,6 +45,20 @@ export default function StorePage({ session, store, products, admin }) {
           store={store}
         />
       </div>
+      <Divider height={20} />
+      {admin && (
+        <>
+          <Heading
+            title={{ text: "Recent transactions", tag: "h5" }}
+            content={{
+              text: "Track your order id on-chain",
+              size: "xs",
+            }}
+          />
+          <Divider height={20} />
+          <Transactions items={transactions} />
+        </>
+      )}
     </div>
   );
 }
@@ -72,11 +92,21 @@ export async function getServerSideProps(context: any) {
     .select()
     .eq("store_id", store[0]?.store_id);
 
+  // select all products that match the store_id
+  const { data: transactions } = await supabase
+    .from("transactions")
+    .select()
+    .order("created_at", { ascending: false })
+    .eq("store_id", store[0]?.store_id);
+
+  console.log(transactions);
+
   return {
     props: {
       session: session,
       store: store[0] || null,
       products: products || null,
+      transactions: transactions || null,
       admin: admin,
     },
   };

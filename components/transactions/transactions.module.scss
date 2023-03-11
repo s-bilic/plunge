@@ -1,0 +1,35 @@
+.item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-m);
+  gap: var(--spacing-xxl);
+  margin: var(--spacing-m) 0;
+  background-color: rgba(var(--color-light), 1);
+  border-radius: var(--radius-m);
+  border: solid 1px rgba(var(--color-stable), 1);
+}
+
+.signature {
+  overflow: hidden;
+  max-width: 10ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.currency {
+  background-color: rgba(var(--color-dark), 1);
+  border-radius: 100%;
+  padding: var(--spacing-s);
+}
