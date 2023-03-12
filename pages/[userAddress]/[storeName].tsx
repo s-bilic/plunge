@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "@utils";
-import { Title, Heading, Container, Breadcrumbs, Chart, Empty } from "@ui";
+import {
+  Title,
+  Heading,
+  Container,
+  Breadcrumbs,
+  Chart,
+  Empty,
+  Snackbar,
+} from "@ui";
 import { Divider } from "@helper";
 import { Products, Checkout, Transactions, TotalCard } from "@components";
 import { getSession } from "next-auth/react";
@@ -17,6 +25,7 @@ export default function StorePage({
   totalSales,
 }) {
   const [selectedData, setSelectedData] = useState();
+  const [publicView, setPublicView] = useState(false);
 
   const chartData = {
     series: [
@@ -49,10 +58,25 @@ export default function StorePage({
     },
   };
 
+  console.log(publicView);
+
   return (
     <div className={styles.store}>
       <Divider height={100} />
-      <Breadcrumbs items={[{ text: "Stores" }, { text: "Products" }]} />
+      <div className={styles.header}>
+        <Breadcrumbs items={[{ text: "Stores" }, { text: "Products" }]} />
+        <Snackbar
+          className={styles.snackbar}
+          title={{ text: "See public view" }}
+          content={{
+            text: "This is what a buyer will see",
+            size: "xs",
+          }}
+          icon={{ name: "elektro" }}
+          // button={{ text: "Visit", link: true, textColor: "royal" }}
+          toggle={{ onChange: () => setPublicView(!publicView) }}
+        />
+      </div>
       <Divider height={20} />
       <div className={styles.wrapper}>
         <Container>
@@ -70,6 +94,7 @@ export default function StorePage({
               store={store}
               onChange={(e) => setSelectedData(e)}
               admin={admin}
+              publicView={publicView}
             />
           </div>
         </Container>
@@ -81,7 +106,7 @@ export default function StorePage({
       </div>
       <Divider height={40} />
       <div className={styles.analytics}>
-        {admin && (
+        {admin && !publicView && (
           <>
             <div className={styles.transactions}>
               <Heading
@@ -105,14 +130,6 @@ export default function StorePage({
               )}
             </div>
             <div>
-              {/* <Heading
-                title={{ text: "Total earned", tag: "h5" }}
-                content={{
-                  text: "Overview of the total amount sold",
-                  size: "xs",
-                }}
-              /> */}
-
               <Heading
                 title={{ text: "Daily sales", tag: "h5" }}
                 content={{

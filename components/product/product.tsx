@@ -26,6 +26,7 @@ const Product = ({
   active,
   button,
   admin,
+  publicView,
 }: IProps) => {
   const classes = cx(
     {
@@ -37,7 +38,7 @@ const Product = ({
 
   return (
     <div className={classes}>
-      {button && admin && (
+      {button && admin && !publicView && (
         <Button
           className={styles.delete}
           link

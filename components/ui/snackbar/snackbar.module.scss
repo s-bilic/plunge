@@ -1,0 +1,22 @@
+.snackbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(var(--color-royal), 0.2);
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-m);
+  background-color: rgba(var(--color-light), 1);
+}

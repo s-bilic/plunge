@@ -31,3 +31,14 @@
   border-top-left-radius: 0;
   border-top: none;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.snackbar {
+  min-width: 350px;
+}

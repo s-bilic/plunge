@@ -14,6 +14,8 @@ import Breadcrumbs from "./breadcrumbs/breadcrumbs";
 import Modal from "./modal/modal";
 import Chart from "./chart/chart";
 import Empty from "./empty/empty";
+import Snackbar from "./snackbar/snackbar";
+
 export {
   Layout,
   Title,
@@ -32,4 +34,5 @@ export {
   Modal,
   Chart,
   Empty,
+  Snackbar,
 };

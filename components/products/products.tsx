@@ -18,7 +18,14 @@ interface IProps {
   admin: boolean;
 }
 
-const Products = ({ className, items, store, onChange, admin }: IProps) => {
+const Products = ({
+  className,
+  items,
+  store,
+  onChange,
+  admin,
+  publicView,
+}: IProps) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
@@ -84,10 +91,11 @@ const Products = ({ className, items, store, onChange, admin }: IProps) => {
             )}
             button={{ onClick: () => deleteProduct(item?.product_id) }}
             admin={admin}
+            publicView={publicView}
           />
           {items?.length - 1 === index && (
             <>
-              {!active && admin && (
+              {!active && admin && !publicView && (
                 <Button
                   onClick={handleForm}
                   className={styles.button}
@@ -115,7 +123,7 @@ const Products = ({ className, items, store, onChange, admin }: IProps) => {
           )}
         </React.Fragment>
       ))}
-      {!active && !items?.length && admin && (
+      {!active && !items?.length && admin && !publicView && (
         <Button
           onClick={handleForm}
           className={styles.button}
