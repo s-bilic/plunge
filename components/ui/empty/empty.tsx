@@ -7,6 +7,9 @@ const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
+  title?: React.ComponentProps<typeof Title>;
+  content?: React.ComponentProps<typeof Content>;
+  icon?: React.ComponentProps<typeof Icon>;
 }
 
 const Empty = ({

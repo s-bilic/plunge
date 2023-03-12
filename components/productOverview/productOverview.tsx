@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./productOverview.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content, Counter } from "@ui";
+import { Title, Content, Counter } from "@ui";
 import { Icon } from "@helper";
 
 const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  href?: string;
-  index?: string;
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
-  counter?: any;
-  updateItemCount?: any;
+  counter?: React.ComponentProps<typeof Counter>;
 }
 
 const ProductOverview = ({

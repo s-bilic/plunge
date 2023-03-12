@@ -9,10 +9,11 @@ const cx = classNames.bind(styles);
 interface IProps {
   className?: string;
   value: number;
+  onChange: Function;
 }
 
 const Counter = ({ className, value, onChange }: IProps) => {
-  const [count, setCount] = useState(value);
+  const [count, setCount] = useState<number>(value);
 
   const classes = cx(
     {

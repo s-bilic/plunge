@@ -13,18 +13,9 @@ interface IProps {
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
   button?: React.ComponentProps<typeof Button>;
-  confirm?: boolean;
 }
 
-const Store = ({
-  className,
-  href,
-  title,
-  content,
-  icon,
-  button,
-  confirm,
-}: IProps) => {
+const Store = ({ className, href, title, content, icon, button }: IProps) => {
   const classes = cx(
     {
       store: true,

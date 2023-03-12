@@ -6,7 +6,6 @@ import {
 } from "./data/data";
 import { supabase } from "./helper/supabaseClient";
 import { SigninMessage } from "./helper/signInMessage";
-
 export {
   supabase,
   storesData,

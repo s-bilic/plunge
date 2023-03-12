@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./iconPicker.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content, Button } from "@ui";
-import { Icon } from "@helper";
+import { Content, Button } from "@ui";
 
 const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  label?: any;
-  onChange?: any;
+  label?: string;
+  onChange?: Function;
 }
 
 const IconPicker = ({ className, label, onChange }: IProps) => {
@@ -60,7 +59,7 @@ const IconPicker = ({ className, label, onChange }: IProps) => {
               icon={{ name: item, size: "xxs" }}
               title={item}
               color={"transparent"}
-              onClick={(e) => setActive(e.currentTarget.title)}
+              onClick={(e: any) => setActive(e.currentTarget.title)}
             />
           </div>
         ))}

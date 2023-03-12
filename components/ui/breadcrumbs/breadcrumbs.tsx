@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import classNames from "classnames/bind";
 import styles from "./breadcrumbs.module.scss";
 import { Badge } from "@ui";
@@ -17,13 +18,15 @@ const Breadcrumbs = ({ className, items }: IProps) => {
     <div className={classes}>
       {items?.map((item, index) => (
         <React.Fragment key={index}>
-          <Badge
-            className={styles.badge}
-            color={"royal"}
-            textColor={"royal"}
-            lighten
-            {...item}
-          />
+          <Link href={item?.href}>
+            <Badge
+              className={styles.badge}
+              color={"royal"}
+              textColor={"royal"}
+              lighten
+              {...item}
+            />
+          </Link>
           {index !== items?.length - 1 && (
             <Icon name={"arrow-right"} size={"xxxs"} {...item} />
           )}

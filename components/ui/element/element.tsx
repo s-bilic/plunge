@@ -13,7 +13,7 @@ interface IProps {
   placeholder?: string;
   disabled?: boolean;
   label?: string;
-  onChange?: () => void;
+  onChange?: Function;
 }
 
 const Element = ({

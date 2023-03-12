@@ -34,7 +34,11 @@ const ActionCard = ({
         )}
         {content && <Content size={"xxs"} {...content} />}
       </div>
-      <div>{badge && <Badge {...badge} />}</div>
+      {badge && (
+        <div>
+          <Badge {...badge} />
+        </div>
+      )}
     </Card>
   );
 };

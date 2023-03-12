@@ -19,6 +19,7 @@ interface IProps {
   disabled?: boolean;
   icon?: React.ComponentProps<typeof Icon>;
   className?: string;
+  title?: string;
 }
 
 const Button = ({

@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import styles from "./transactions.module.scss";
 import classNames from "classnames/bind";
-import { Badge, Title, Content, Card } from "@ui";
+import { Content, Card } from "@ui";
 import { Icon } from "@helper";
 
 const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  items: any;
+  items: ITransaction[];
+}
+
+interface ITransaction {
+  transaction_subtotal: number;
+  transaction_signature: string;
+  created_at: string;
 }
 
 const Transactions = ({ className, items }: IProps) => {
@@ -76,18 +82,6 @@ const Transactions = ({ className, items }: IProps) => {
                   />
                 </div>
               )}
-
-              {/* {item?.transaction_id && (
-                <div className={styles.iconWrapper}>
-                  <Icon />
-                  <Content
-                    className={styles.id}
-                    size={"xs"}
-                    text={item.transaction_id}
-                    emphasize
-                  />
-                </div>
-              )} */}
             </div>
           );
         })}

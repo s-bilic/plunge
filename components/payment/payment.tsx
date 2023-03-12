@@ -1,15 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
-import { PublicKey, Keypair } from "@solana/web3.js";
-import { useConnection } from "@solana/wallet-adapter-react";
-import {
-  encodeURL,
-  createQR,
-  findReference,
-  FindReferenceError,
-  validateTransfer,
-} from "@solana/pay";
+import { PublicKey } from "@solana/web3.js";
+import { encodeURL, createQR } from "@solana/pay";
 import BigNumber from "bignumber.js";
+
+interface IProps {
+  receiverAddress: string;
+  paymentAmount: number;
+  reference: PublicKey;
+  message: string;
+  memo: string;
+}
 
 const Payment = ({
   receiverAddress,
@@ -17,7 +18,7 @@ const Payment = ({
   reference,
   message,
   memo,
-}) => {
+}: IProps) => {
   const ref: any = useRef();
   const recipient = new PublicKey(receiverAddress);
   const amount = new BigNumber(paymentAmount);

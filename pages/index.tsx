@@ -6,18 +6,9 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { storeTypes, supabase, SigninMessage, actionCardsData } from "@utils";
 import bs58 from "bs58";
 import styles from "../styles/home.module.scss";
-import {
-  Title,
-  Content,
-  Button,
-  Card,
-  Tile,
-  Heading,
-  Container,
-  Breadcrumbs,
-} from "@ui";
-import { Divider, Icon } from "@helper";
-import { Stores, Payment, Product, ActionCard } from "@components";
+import { Heading, Container, Breadcrumbs } from "@ui";
+import { Divider } from "@helper";
+import { Stores, ActionCard } from "@components";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -86,16 +77,14 @@ const Home = ({ storesData, userData, session }) => {
     }
   }, [wallet.connected]);
 
-  console.log(userData, "user");
-
   return (
     <div className={styles.home}>
       <Divider height={100} />
-      {/* {!userData.length && <Content text={"Connect your wallet"} />}
-      {userData.length > 0 && <Content text={"Your stores"} />} */}
-      <Divider height={20} />
       <Breadcrumbs
-        items={[{ text: "Stores" }, { text: "Products", disabled: true }]}
+        items={[
+          { text: "Stores", href: "/" },
+          { text: "Products", href: "/", disabled: true },
+        ]}
       />
       <Divider height={20} />
       <Container>
@@ -142,20 +131,24 @@ const Home = ({ storesData, userData, session }) => {
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
 
+  // select user that matches the session name
   const { data: user } = await supabase
     .from("users")
     .select()
     .eq("user_address", session?.user?.name);
 
+  // select all stores that matches the user_id
   const { data: stores } = await supabase
     .from("stores")
     .select()
     .eq("user_id", user[0]?.user_id);
 
-  const { data: storeProducts, error } = await supabase
+  // select all store products that match a store_id (view)
+  const { data: storeProducts } = await supabase
     .from("store_products")
     .select("*");
 
+  // create new stores array including product_count
   const transformedStores = stores?.map((item) => {
     const product = storeProducts?.find((p) => p.store_id === item.store_id);
     return { ...item, ...product };

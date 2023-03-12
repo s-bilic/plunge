@@ -11,6 +11,7 @@ interface IProps {
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   button?: React.ComponentProps<typeof Button>;
+  icon?: React.ComponentProps<typeof Icon>;
 }
 
 const Heading = ({ className, title, content, button, icon }: IProps) => {

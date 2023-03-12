@@ -21,12 +21,19 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 
 interface IProps {
   children?: React.ReactNode;
+  session?: ISession;
+}
+
+interface ISession {
+  expires: string;
+  publicKey: string;
+  user: { name: string };
 }
 
 const Wallet = ({ children, session }: IProps) => {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
   const network = WalletAdapterNetwork.Devnet;
-
+  console.log(session);
   // You can also provide a custom RPC endpoint.
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 

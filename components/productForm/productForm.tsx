@@ -1,38 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./productForm.module.scss";
 import classNames from "classnames/bind";
-import {
-  Tile,
-  Title,
-  Content,
-  Badge,
-  Button,
-  Form,
-  Element,
-  IconPicker,
-} from "@ui";
+import { Tile, Form, IconPicker } from "@ui";
 
 const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  tile?: React.ComponentProps<typeof Tile>;
-  types?: string[];
+  iconPicker: React.ComponentProps<typeof IconPicker>;
   save?: React.MouseEventHandler<HTMLButtonElement>;
   cancel?: React.MouseEventHandler<HTMLButtonElement>;
-  onChange?: any;
   form?: any;
-  button?: any;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const ProductForm = ({
   className,
-  types,
+  iconPicker,
   save,
   cancel,
   form,
-  iconPicker,
   disabled,
 }: IProps) => {
   const [data, setData] = useState([
@@ -55,7 +42,6 @@ const ProductForm = ({
     className
   );
 
-  // sidebar + input form (name, price, icon) + list of created items
   return (
     <div className={classes}>
       <Tile

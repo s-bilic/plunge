@@ -10,22 +10,55 @@ interface IProps {
   type: string;
   width: number;
   height: number;
-  options: any;
-  series: any;
+  seriesName: string;
+  seriesData: number[];
+  optionsCategories: string[];
 }
-
-const Chart = ({ className, type, width, height, options, series }: IProps) => {
+const Chart = ({
+  className,
+  type,
+  width,
+  height,
+  seriesName,
+  seriesData,
+  optionsCategories,
+}: IProps) => {
   let classes = cx({ chart: true }, className);
+
+  const chartData = {
+    series: [
+      {
+        name: seriesName,
+        data: seriesData,
+      },
+    ],
+    options: {
+      colors: ["#512da8"],
+      chart: {
+        height: 350,
+        type: type,
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "datetime",
+        categories: optionsCategories,
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
 
   return (
     <div className={classes}>
-      <ApexCharts
-        options={options}
-        series={series}
-        type={type}
-        width={width}
-        height={height}
-      />
+      <ApexCharts width={width} height={height} {...chartData} />
     </div>
   );
 };

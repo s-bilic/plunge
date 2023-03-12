@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import ReactModal from "react-modal";
 import styles from "./modal.module.scss";
 import classNames from "classnames/bind";
@@ -15,6 +14,7 @@ interface IProps {
   buttons: any;
   icon: any;
   isOpen: boolean;
+  id: string;
 }
 
 const Modal = ({

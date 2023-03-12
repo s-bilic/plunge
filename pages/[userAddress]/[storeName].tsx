@@ -1,22 +1,12 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { supabase } from "@utils";
-import {
-  Title,
-  Heading,
-  Container,
-  Breadcrumbs,
-  Chart,
-  Empty,
-  Snackbar,
-} from "@ui";
+import { Heading, Container, Breadcrumbs, Chart, Empty, Snackbar } from "@ui";
 import { Divider } from "@helper";
 import { Products, Checkout, Transactions, TotalCard } from "@components";
 import { getSession } from "next-auth/react";
 import styles from "../../styles/store.module.scss";
 
 export default function StorePage({
-  session,
   store,
   products,
   transactions,
@@ -24,47 +14,19 @@ export default function StorePage({
   dailySales,
   totalSales,
 }) {
-  const [selectedData, setSelectedData] = useState();
-  const [publicView, setPublicView] = useState(false);
-
-  const chartData = {
-    series: [
-      {
-        name: "Sales",
-        data: dailySales?.map((item) => item.total),
-      },
-    ],
-    options: {
-      colors: ["#512da8"],
-      chart: {
-        height: 350,
-        type: "area",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        type: "datetime",
-        categories: dailySales?.map((item) => item.transaction_date),
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm",
-        },
-      },
-    },
-  };
-
-  console.log(publicView);
+  const [selectedData, setSelectedData] = useState<any>();
+  const [publicView, setPublicView] = useState<boolean>(false);
 
   return (
     <div className={styles.store}>
       <Divider height={100} />
       <div className={styles.header}>
-        <Breadcrumbs items={[{ text: "Stores" }, { text: "Products" }]} />
+        <Breadcrumbs
+          items={[
+            { text: "Stores", href: "/" },
+            { text: "Products", href: "/" },
+          ]}
+        />
         <Snackbar
           className={styles.snackbar}
           title={{ text: "See public view" }}
@@ -73,7 +35,6 @@ export default function StorePage({
             size: "xs",
           }}
           icon={{ name: "elektro" }}
-          // button={{ text: "Visit", link: true, textColor: "royal" }}
           toggle={{ onChange: () => setPublicView(!publicView) }}
         />
       </div>
@@ -149,7 +110,11 @@ export default function StorePage({
                 type={"area"}
                 width={500}
                 height={320}
-                {...chartData}
+                seriesName={"Sales"}
+                seriesData={dailySales?.map((item) => item.total)}
+                optionsCategories={dailySales?.map(
+                  (item) => item.transaction_date
+                )}
               />
               <Divider height={40} />
             </div>
@@ -161,7 +126,7 @@ export default function StorePage({
 }
 
 export async function getServerSideProps(context: any) {
-  const { params, query, req, res } = context;
+  const { params, req } = context;
   const session = await getSession({ req });
 
   const sessionAddress = session?.user?.name;
@@ -197,6 +162,7 @@ export async function getServerSideProps(context: any) {
     .eq("store_id", store[0]?.store_id)
     .range(0, 5);
 
+  // select all daily total sales that match the store_id (rpc function)
   let { data: dailySales } = await supabase.rpc(
     "get_daily_transactions_total",
     {
@@ -204,13 +170,13 @@ export async function getServerSideProps(context: any) {
     }
   );
 
+  // select total sales that match the store_id (rpc function)
   let { data: totalSales } = await supabase.rpc("get_transactions_total", {
     store_id: store[0]?.store_id,
   });
 
   return {
     props: {
-      session: session,
       store: store[0] || null,
       products: products || null,
       transactions: transactions || null,

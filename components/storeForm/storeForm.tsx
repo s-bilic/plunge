@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./storeForm.module.scss";
 import classNames from "classnames/bind";
-import { Tile, Title, Content, Badge, Button } from "@ui";
+import { Tile, Badge } from "@ui";
 
 const cx = classNames.bind(styles);
 
@@ -11,8 +11,9 @@ interface IProps {
   types: string[];
   save?: React.MouseEventHandler<HTMLButtonElement>;
   cancel?: React.MouseEventHandler<HTMLButtonElement>;
-  onChange?: any;
-  disabled?: any;
+  onChange?: Function;
+  disabled?: boolean;
+  data?: { store_name: string }[];
 }
 
 const StoreForm = ({
@@ -32,7 +33,7 @@ const StoreForm = ({
     },
     className
   );
-
+  console.log(data);
   const selectBadge = (e: any) => {
     if (e) {
       setType(e?.target?.innerText);
@@ -74,12 +75,11 @@ const StoreForm = ({
           ],
         }}
       >
-        {console.log(data)}
         <div className={styles.types}>
           {count === 0 &&
             types?.map((item, index) => {
               const isDisabled = data?.some(
-                (d) => d?.store_name === item?.toLowerCase()
+                (d: any) => d?.store_name === item?.toLowerCase()
               );
 
               return (
@@ -90,8 +90,8 @@ const StoreForm = ({
                   textColor={"stable-700"}
                   active={type === item}
                   onClick={selectBadge}
-                  outline
                   disabled={isDisabled}
+                  outline
                 />
               );
             })}

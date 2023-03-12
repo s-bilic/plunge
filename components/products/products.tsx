@@ -14,8 +14,18 @@ interface IProps {
     product_price: number;
     product_icon: string;
   }[];
-  onChange: any;
+  store: { store_id: number };
+  onChange: Function;
   admin: boolean;
+  publicView: boolean;
+}
+
+interface IProduct {
+  store_id?: number;
+  product_id?: number;
+  product_name: string;
+  product_price: number;
+  product_icon: string;
 }
 
 const Products = ({
@@ -27,12 +37,10 @@ const Products = ({
   publicView,
 }: IProps) => {
   const router = useRouter();
-  const [showModal, setShowModal] = useState(false);
-
-  const [formData, setFormData] = useState("");
-  const [iconData, setIconData] = useState("");
-  const [active, setActive] = useState(false);
-  const [selected, setSelected] = useState([]);
+  const [formData, setFormData] = useState<{ value: string }[]>([]);
+  const [iconData, setIconData] = useState<string>("");
+  const [active, setActive] = useState<boolean>(false);
+  const [selected, setSelected] = useState<IProduct[]>([]);
 
   const classes = cx(
     {
@@ -62,9 +70,10 @@ const Products = ({
     router.refresh();
   };
 
-  const handleProductToggle = (product: any) => {
-    if (selected.includes(product)) {
-      setSelected(selected.filter((p) => p !== product));
+  const handleProductToggle = (product: IProduct) => {
+    console.log(product);
+    if (selected?.includes(product)) {
+      setSelected(selected?.filter((p) => p !== product));
     } else {
       setSelected([...selected, product]);
     }
@@ -78,7 +87,7 @@ const Products = ({
 
   return (
     <div className={classes}>
-      {items?.map((item, index) => (
+      {items?.map((item: IProduct, index) => (
         <React.Fragment key={index}>
           <Product
             onClick={() => handleProductToggle(item)}
@@ -89,7 +98,7 @@ const Products = ({
             active={selected.some(
               (selectedItem) => selectedItem.product_id === item.product_id
             )}
-            button={{ onClick: () => deleteProduct(item?.product_id) }}
+            button={{ onClick: () => deleteProduct(Number(item?.product_id)) }}
             admin={admin}
             publicView={publicView}
           />
@@ -112,10 +121,10 @@ const Products = ({
                     !formData[0]?.value || !formData[1]?.value || !iconData
                   }
                   form={{
-                    onChange: (e) => setFormData(e),
+                    onChange: (e: any) => setFormData(e),
                   }}
                   iconPicker={{
-                    onChange: (e) => setIconData(e),
+                    onChange: (e: any) => setIconData(e),
                   }}
                 />
               )}

@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./stores.module.scss";
 import classNames from "classnames/bind";
-import { Button, Badge, Tile, Title, Content, Modal } from "@ui";
+import { Button, Modal } from "@ui";
 import { Store, StoreForm } from "@components";
 import { supabase } from "@utils";
-import { Icon } from "@helper";
-
 const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  items: React.ComponentProps<typeof Store>[];
-  types: [];
+  items: IStore[];
+  types: string[];
+  user: { user_id?: number; user_address?: string }[];
+}
+
+interface IStore {
+  product_count?: number;
+  store_name?: string;
+  store_id?: number;
 }
 
 const Stores = ({ className, items, types, user }: IProps) => {
   const router = useRouter();
-  const [showModal, setShowModal] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
-  const [data, setData] = useState(items);
-  const [active, setActive] = useState(false);
-  const [type, setType] = useState("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [deleteId, setDeleteId] = useState<number>();
+  const [active, setActive] = useState<boolean>(false);
+  const [type, setType] = useState<string>("");
+
   const classes = cx(
     {
       stores: true,
@@ -48,7 +53,7 @@ const Stores = ({ className, items, types, user }: IProps) => {
     router.refresh();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     setDeleteId(id);
     setShowModal(true);
   };
@@ -87,7 +92,7 @@ const Stores = ({ className, items, types, user }: IProps) => {
         }}
         icon={{ name: "trash" }}
       />
-      {data?.map((item, index) => (
+      {items?.map((item: IStore, index: number) => (
         <React.Fragment key={index}>
           <Store
             className={styles.store}
@@ -102,9 +107,9 @@ const Stores = ({ className, items, types, user }: IProps) => {
             button={{ onClick: () => handleDelete(item?.store_id) }}
             {...item}
           />
-          {data.length - 1 === index && (
+          {items?.length - 1 === index && (
             <>
-              {!active && data?.length < 14 && (
+              {!active && items?.length < 14 && (
                 <Button
                   onClick={handleForm}
                   className={styles.button}
@@ -120,14 +125,14 @@ const Stores = ({ className, items, types, user }: IProps) => {
                   cancel={() => setActive(false)}
                   onChange={(e: any) => setType(e)}
                   disabled={!type}
-                  data={data}
+                  data={items}
                 />
               )}
             </>
           )}
         </React.Fragment>
       ))}
-      {!active && !data.length && (
+      {!active && !items.length && (
         <Button
           onClick={handleForm}
           className={styles.button}
@@ -137,14 +142,14 @@ const Stores = ({ className, items, types, user }: IProps) => {
           outline
         />
       )}
-      {active && !data.length && (
+      {active && !items.length && (
         <StoreForm
           types={types}
           save={handleForm}
           cancel={() => setActive(false)}
           onChange={(e: any) => setType(e)}
           disabled={!type}
-          data={data}
+          data={items}
         />
       )}
     </div>

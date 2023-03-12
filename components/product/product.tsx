@@ -8,13 +8,14 @@ const cx = classNames.bind(styles);
 
 interface IProps {
   className?: string;
-  onClick?: string;
-  index?: string;
+  onClick?: Function;
   title?: React.ComponentProps<typeof Title>;
   content?: React.ComponentProps<typeof Content>;
   icon?: React.ComponentProps<typeof Icon>;
   active?: boolean;
   button?: React.ComponentProps<typeof Button>;
+  admin?: boolean;
+  publicView?: boolean;
 }
 
 const Product = ({
@@ -61,7 +62,6 @@ const Product = ({
             <Content size={"xs"} color={"dark"} emphasize {...content} />
           )}
           <Icon className={styles.iconCurrency} name={"sol"} size={"xxxxs"} />
-          {/* <Icon name={"usdc"} size={"xxxs"} /> */}
         </div>
       </div>
     </div>

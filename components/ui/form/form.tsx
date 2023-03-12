@@ -12,7 +12,7 @@ interface IProps {
   onChange?: Function;
 }
 
-const Form = ({ className, items, button, onChange }: IProps) => {
+const Form = ({ className, items, onChange }: IProps) => {
   const [data, setData] = useState(items);
   const classes = cx(
     {

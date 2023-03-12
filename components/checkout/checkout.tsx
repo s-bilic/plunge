@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./checkout.module.scss";
 import classNames from "classnames/bind";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { Tile, Title, Content, Card, Button } from "@ui";
+import { Content, Card, Button } from "@ui";
 import { Icon } from "@helper";
 import { ProductOverview, Payment } from "@components";
 import { supabase } from "@utils";
@@ -22,17 +22,22 @@ interface IProps {
   className?: string;
   items: any;
   receiverAddress: string;
-  store: object;
+  store: {
+    store_id: number;
+    user_id: number;
+  };
 }
 
 const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
-  const [paymentStatus, setPaymentStatus] = useState("");
   const { connection } = useConnection();
+  const orderId: uuidv4 = uuidv4();
   const reference = new Keypair().publicKey;
-  const [countData, setCountData] = useState(new Array(items?.length).fill(1));
-  const [totalPrice, setTotalPrice] = useState();
-  const [active, setActive] = useState(false);
-  const orderId = uuidv4();
+  const [paymentStatus, setPaymentStatus] = useState<string>("");
+  const [countData, setCountData] = useState<any>(
+    new Array(items?.length).fill(1)
+  );
+  const [totalPrice, setTotalPrice] = useState<string>("");
+  const [active, setActive] = useState<boolean>(false);
 
   const classes = cx(
     {
@@ -41,21 +46,22 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
     className
   );
 
-  const handleCountChange = (index, newCount) => {
+  const handleCountChange = (index: number, newCount: number) => {
     const newCounts = [...countData];
     newCounts[index] = newCount;
     setCountData(newCounts);
   };
 
   // Creates new array of selected items with quantity for each selected product.
-  const transformedItems = items?.map((item, index) => ({
+  const transformedItems = items?.map((item: object, index: number) => ({
     ...item,
     product_quantity: countData[index],
   }));
 
   useEffect(() => {
     const newTotalPrice = items?.reduce(
-      (acc, item, i) => acc + item.product_price * countData[i],
+      (acc: number, item: { product_price: number }, i: number) =>
+        acc + item?.product_price * countData[i],
       0
     );
 
@@ -68,13 +74,12 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
   useEffect(() => {
     setActive(false);
     setPaymentStatus("");
-    // setPaymentStatus("");
   }, [totalPrice]);
 
   useEffect(() => {
     let interval: number;
     if (active) {
-      let signatureInfo;
+      let signatureInfo: { signature: string };
 
       const checkTransaction = async () => {
         console.count("Checking for transaction...");
@@ -83,7 +88,6 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
           signatureInfo = await findReference(connection, reference, {
             finality: "confirmed",
           });
-          console.log("\n 🖌  Signature found: ", signatureInfo.signature);
           clearInterval(interval);
           validatePayment(signatureInfo);
         } catch (error: any) {
@@ -94,8 +98,7 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
         }
       };
 
-      const validatePayment = async (signatureInfo) => {
-        // Update payment status
+      const validatePayment = async (signatureInfo: { signature: string }) => {
         setPaymentStatus("confirmed");
         try {
           await toast.promise(
@@ -110,9 +113,10 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
             }
           );
 
-          // Update payment status
+          // Update payment status: validated
           setPaymentStatus("validated");
 
+          // Insert transaction into database
           await supabase.from("transactions").insert({
             transaction_id: orderId,
             transaction_signature: signatureInfo?.signature,
@@ -122,16 +126,21 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
             store_id: store?.store_id,
           });
 
-          const transactionDetails = transformedItems?.map((item) => ({
-            transaction_id: orderId,
-            product_id: item?.product_id,
-            transaction_detail_quantity: item?.product_quantity,
-            transaction_detail_price: item?.product_price,
-          }));
+          const transactionDetails = transformedItems?.map(
+            (item: {
+              product_id: number;
+              product_quantity: number;
+              product_price: number;
+            }) => ({
+              transaction_id: orderId,
+              product_id: item?.product_id,
+              transaction_detail_quantity: item?.product_quantity,
+              transaction_detail_price: item?.product_price,
+            })
+          );
 
+          // Insert transaction details into database such as product quantity
           await supabase.from("transaction_details").insert(transactionDetails);
-
-          console.log("✅ Payment validated");
         } catch (error) {
           setPaymentStatus("");
           console.error("❌ Payment failed", error);
@@ -145,24 +154,33 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
   }, [active]);
 
   return (
-    <Card className={classes} color={"light"} borderRadius outline>
+    <Card className={classes} color={"light"} borderRadius>
       <div className={styles.items}>
-        {items?.map((item, index) => {
-          return (
-            <ProductOverview
-              key={index}
-              className={styles.item}
-              title={{ text: item?.product_name }}
-              content={{ text: item?.product_price }}
-              icon={{ name: item?.product_icon }}
-              counter={{
-                value: 1,
-                onChange: (e) => handleCountChange(index, e),
-              }}
-              {...item}
-            />
-          );
-        })}
+        {items?.map(
+          (
+            item: {
+              product_name: string;
+              product_price: string;
+              product_icon: string;
+            },
+            index: number
+          ) => {
+            return (
+              <ProductOverview
+                key={index}
+                className={styles.item}
+                title={{ text: item?.product_name }}
+                content={{ text: item?.product_price }}
+                icon={{ name: item?.product_icon }}
+                counter={{
+                  value: 1,
+                  onChange: (e: number) => handleCountChange(index, e),
+                }}
+                {...item}
+              />
+            );
+          }
+        )}
       </div>
       <div>
         <div className={styles.subtotal}>
@@ -178,7 +196,7 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
               <Payment
                 receiverAddress={receiverAddress}
                 reference={reference}
-                paymentAmount={totalPrice}
+                paymentAmount={Number(totalPrice)}
                 message={"order-id: " + orderId}
                 memo={orderId}
               />
@@ -191,7 +209,7 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
           text={"Pay"}
           color={"royal"}
           grow
-          disabled={totalPrice === 0 || active}
+          disabled={totalPrice === "0.000" || active}
         />
       </div>
     </Card>
