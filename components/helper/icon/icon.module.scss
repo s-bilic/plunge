@@ -76,6 +76,16 @@
   }
 }
 
+.icon-stable-500 {
+  &.stroke {
+    path {
+      fill: inherit;
+      stroke: rgba(var(--color-stable-500));
+    }
+  }
+}
+
+
 .icon-balanced {
   svg {
     color: rgba(var(--color-balanced));

@@ -13,7 +13,7 @@ import Container from "./container/container";
 import Breadcrumbs from "./breadcrumbs/breadcrumbs";
 import Modal from "./modal/modal";
 import Chart from "./chart/chart";
-
+import Empty from "./empty/empty";
 export {
   Layout,
   Title,
@@ -31,4 +31,5 @@ export {
   Breadcrumbs,
   Modal,
   Chart,
+  Empty,
 };

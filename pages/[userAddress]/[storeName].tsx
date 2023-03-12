@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "@utils";
-import { Title, Heading, Container, Breadcrumbs, Chart } from "@ui";
+import { Title, Heading, Container, Breadcrumbs, Chart, Empty } from "@ui";
 import { Divider } from "@helper";
 import { Products, Checkout, Transactions, TotalCard } from "@components";
 import { getSession } from "next-auth/react";
@@ -92,7 +92,17 @@ export default function StorePage({
                 }}
               />
               <Divider height={40} />
-              <Transactions items={transactions} />
+              {transactions.length ? (
+                <Transactions items={transactions} />
+              ) : (
+                <Empty
+                  title={{ text: "No transactions found" }}
+                  content={{
+                    text: "Transactions appear after store purchases",
+                    size: "xs",
+                  }}
+                />
+              )}
             </div>
             <div>
               {/* <Heading
