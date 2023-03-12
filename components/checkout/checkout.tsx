@@ -30,7 +30,7 @@ interface IProps {
 
 const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
   const { connection } = useConnection();
-  const orderId: uuidv4 = uuidv4();
+  const orderId = uuidv4();
   const reference = new Keypair().publicKey;
   const [paymentStatus, setPaymentStatus] = useState<string>("");
   const [countData, setCountData] = useState<any>(
