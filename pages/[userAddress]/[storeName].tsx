@@ -194,10 +194,11 @@ export async function getServerSideProps(context: any) {
     .from("transactions")
     .select()
     .order("created_at", { ascending: false })
-    .eq("store_id", store[0]?.store_id);
+    .eq("store_id", store[0]?.store_id)
+    .range(0, 5);
 
   let { data: dailySales } = await supabase.rpc(
-    "get_daily_transaction_totals",
+    "get_daily_transactions_total",
     {
       store_id: store[0]?.store_id,
     }

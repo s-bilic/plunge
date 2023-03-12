@@ -151,11 +151,21 @@ export async function getServerSideProps(context: any) {
     .from("stores")
     .select()
     .eq("user_id", user[0]?.user_id);
+
+  const { data: storeProducts, error } = await supabase
+    .from("store_products")
+    .select("*");
+
+  const transformedStores = stores?.map((item) => {
+    const product = storeProducts?.find((p) => p.store_id === item.store_id);
+    return { ...item, ...product };
+  });
+
   return {
     props: {
       session,
       userData: user || [],
-      storesData: stores || [],
+      storesData: transformedStores || [],
     },
   };
 }

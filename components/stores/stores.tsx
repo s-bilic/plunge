@@ -92,7 +92,11 @@ const Stores = ({ className, items, types, user }: IProps) => {
           <Store
             className={styles.store}
             href={`${user[0]?.user_address}/${item?.store_name}`}
-            content={{ text: `${5} products` }}
+            content={{
+              text: item?.product_count
+                ? `${item?.product_count?.toString()} products`
+                : "0 products",
+            }}
             title={{ text: item?.store_name }}
             icon={{ name: item?.store_name }}
             button={{ onClick: () => handleDelete(item?.store_id) }}

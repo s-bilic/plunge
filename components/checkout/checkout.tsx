@@ -21,7 +21,8 @@ const cx = classNames.bind(styles);
 interface IProps {
   className?: string;
   items: any;
-  receiverAddress: any;
+  receiverAddress: string;
+  store: object;
 }
 
 const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
