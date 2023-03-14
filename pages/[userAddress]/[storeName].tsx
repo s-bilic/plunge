@@ -16,7 +16,7 @@ export default function StorePage({
 }) {
   const [selectedData, setSelectedData] = useState<any>();
   const [publicView, setPublicView] = useState<boolean>(false);
-  console.log(store);
+
   return (
     <div className={styles.store}>
       <Divider height={100} />
