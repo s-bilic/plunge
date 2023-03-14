@@ -33,7 +33,6 @@ const StoreForm = ({
     },
     className
   );
-  console.log(data);
   const selectBadge = (e: any) => {
     if (e) {
       setType(e?.target?.innerText);

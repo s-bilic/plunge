@@ -16,7 +16,7 @@ export default function StorePage({
 }) {
   const [selectedData, setSelectedData] = useState<any>();
   const [publicView, setPublicView] = useState<boolean>(false);
-
+  console.log(store);
   return (
     <div className={styles.store}>
       <Divider height={100} />
@@ -42,7 +42,7 @@ export default function StorePage({
       <div className={styles.wrapper}>
         <Container>
           <Heading
-            title={{ text: "Products", tag: "h5" }}
+            title={{ text: store?.store_name + " store", tag: "h5" }}
             content={{
               text: "Start creating your products",
               size: "xs",
@@ -107,9 +107,6 @@ export default function StorePage({
               />
               <Chart
                 className={styles.chart}
-                type={"area"}
-                // width={500}
-                // height={320}
                 seriesName={"Sales"}
                 seriesData={dailySales?.map((item) => item.total)}
                 optionsCategories={dailySales?.map(

@@ -30,7 +30,7 @@ const ProductForm = ({
     },
     {
       id: "1",
-      type: "text",
+      type: "number",
       label: "Price",
     },
   ]);

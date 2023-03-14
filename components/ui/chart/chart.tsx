@@ -17,8 +17,6 @@ interface IProps {
 const Chart = ({
   className,
   type,
-  width,
-  height,
   seriesName,
   seriesData,
   optionsCategories,
@@ -53,30 +51,11 @@ const Chart = ({
         },
       },
     },
-    responsive: [
-      {
-        breakpoint: 1000,
-        options: {
-          // plotOptions: {
-          //   bar: {
-          //     horizontal: false,
-          //   },
-          // },
-          legend: {
-            position: "bottom",
-          },
-          chart: {
-            height: 500,
-            width: 500,
-          },
-        },
-      },
-    ],
   };
 
   return (
     <div className={classes}>
-      <ApexCharts {...chartData} />
+      <ApexCharts type={"area"} {...chartData} />
     </div>
   );
 };

@@ -48,6 +48,7 @@ const Element = ({
         placeholder={placeholder}
         disabled={disabled}
         onChange={onChange}
+        onWheel={(e) => e.target.blur()}
       />
     </div>
   );

@@ -64,7 +64,7 @@ const Home = ({ storesData, userData, session }) => {
             .from("users")
             .insert({ user_address: session.user?.name });
         } else {
-          return console.log("user already exists");
+          return;
         }
       };
       createUser();

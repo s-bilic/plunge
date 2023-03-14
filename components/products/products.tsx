@@ -71,7 +71,6 @@ const Products = ({
   };
 
   const handleProductToggle = (product: IProduct) => {
-    console.log(product);
     if (selected?.includes(product)) {
       setSelected(selected?.filter((p) => p !== product));
     } else {

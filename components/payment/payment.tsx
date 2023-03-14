@@ -25,8 +25,6 @@ const Payment = ({
   const label = "Plunge store payment";
 
   const url = encodeURL({ recipient, amount, reference, label, message, memo });
-  console.log(memo);
-  console.log(message);
   useEffect(() => {
     const qrCode = createQR(url, 350);
     qrCode.append(ref?.current);
