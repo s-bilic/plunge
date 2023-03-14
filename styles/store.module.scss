@@ -2,8 +2,13 @@
 
 .wrapper {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-m);
   width: 100%;
+
+  @include medium {
+    flex-direction: row;
+  }
 }
 
 .grid {
@@ -19,7 +24,20 @@
 
 .analytics {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-xxl);
+
+  @include medium {
+    flex-direction: row;
+  }
+}
+
+.chartWrapper {
+  width: 100%;
+
+  @include medium {
+    width: 1100px;
+  }
 }
 
 .transactions {
@@ -34,11 +52,21 @@
 
 .header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: 10px;
+
+  @include medium {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
 }
 
 .snackbar {
-  min-width: 350px;
+  width: 100%;
+
+  @include small {
+    width: 350px;
+  }
 }

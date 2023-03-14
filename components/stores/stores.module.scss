@@ -1,13 +1,21 @@
+@import "../../styles/mixins.scss";
+
 .stores {
-  position: relative;
-  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   flex-wrap: wrap;
   gap: var(--spacing-l);
+  position: relative;
+  display: flex;
   border-radius: 20px;
   z-index: 1;
+  
 
   a {
     height: 100%;
+  }
+
+  @include small {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
 

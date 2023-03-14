@@ -1,14 +1,25 @@
+@import "../../styles/mixins.scss";
+
 .product {
   position: relative;
+  width: 100%;
+
+  @include small {
+    width: 128px;
+  }
 }
 
 .tile {
   display: flex;
   position: relative;
   display: flex;
-  width: 140px;
-  height: 140px;
+  width: 100%;
+  height: 128px;
   border: solid 1px rgba(var(--color-stable), 1);
+
+  @include small {
+    width: 128px;
+  }
 }
 
 .wrapper {

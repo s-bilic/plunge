@@ -35,7 +35,6 @@ const Chart = ({
     options: {
       colors: ["#512da8"],
       chart: {
-        height: 350,
         type: type,
       },
       dataLabels: {
@@ -54,11 +53,30 @@ const Chart = ({
         },
       },
     },
+    responsive: [
+      {
+        breakpoint: 1000,
+        options: {
+          // plotOptions: {
+          //   bar: {
+          //     horizontal: false,
+          //   },
+          // },
+          legend: {
+            position: "bottom",
+          },
+          chart: {
+            height: 500,
+            width: 500,
+          },
+        },
+      },
+    ],
   };
 
   return (
     <div className={classes}>
-      <ApexCharts width={width} height={height} {...chartData} />
+      <ApexCharts {...chartData} />
     </div>
   );
 };

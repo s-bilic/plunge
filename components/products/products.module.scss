@@ -1,8 +1,15 @@
+@import "../../styles/mixins.scss";
+
 .products {
   display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   flex-wrap: wrap;
   gap: var(--spacing-l);
   height: 100%;
+
+  @include small {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
 .product {
@@ -14,6 +21,6 @@
 
 .button {
   width: 80px;
-  height: 140px;
+  height: 128px;
   margin: 0;
 }

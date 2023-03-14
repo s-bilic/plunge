@@ -9,10 +9,17 @@
   margin-top: var(--spacing-l);
   border: solid 1px rgba(var(--color-stable), 1);
 
+
+  @include medium {
+    max-width: 250px;
+    margin-top: 0;
+  }
+
   @include large {
     max-width: 350px;
     margin-top: 0;
   }
+
 }
 
 .items {

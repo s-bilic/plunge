@@ -90,7 +90,7 @@ export default function StorePage({
                 />
               )}
             </div>
-            <div>
+            <div className={styles.chartWrapper}>
               <Heading
                 title={{ text: "Daily sales", tag: "h5" }}
                 content={{
@@ -108,8 +108,8 @@ export default function StorePage({
               <Chart
                 className={styles.chart}
                 type={"area"}
-                width={500}
-                height={320}
+                // width={500}
+                // height={320}
                 seriesName={"Sales"}
                 seriesData={dailySales?.map((item) => item.total)}
                 optionsCategories={dailySales?.map(
