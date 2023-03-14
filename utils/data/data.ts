@@ -12,7 +12,7 @@ const storesData = [
 ];
 
 const storeTypes = [
-  "Warehouse",
+  "Event",
   "Games",
   "Specialty",
   "Grocery",
@@ -47,7 +47,7 @@ const actionCardsData = [
       text: "Store-checkout",
     },
     content: {
-      text: "Solana payments integrated into your store",
+      text: "Retail solution for easy store payments",
     },
   },
   {
@@ -55,7 +55,7 @@ const actionCardsData = [
       text: "Self-checkout",
     },
     content: {
-      text: "Solana payments integrated into your store",
+      text: "Retail solution for self payments within a store",
     },
   },
   {
@@ -63,7 +63,7 @@ const actionCardsData = [
       text: "Online-checkout",
     },
     content: {
-      text: "Solana payments integrated into your store",
+      text: "The option to turn your store into a webshop",
     },
   },
 ];

@@ -54,3 +54,10 @@
   padding: var(--spacing-s);
   z-index: 1;
 }
+
+.title {
+  overflow: hidden;
+  max-width: 11ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

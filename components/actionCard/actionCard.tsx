@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import styles from "./actionCard.module.scss";
 import classNames from "classnames/bind";
 import { Badge, Title, Content, Card } from "@ui";
@@ -35,9 +36,9 @@ const ActionCard = ({
         {content && <Content size={"xxs"} {...content} />}
       </div>
       {badge && (
-        <div>
+        <Link href={"https://plunge.gitbook.io/plunge/#checkout-methods"}>
           <Badge {...badge} />
-        </div>
+        </Link>
       )}
     </Card>
   );

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SigninMessage } from "@utils";
@@ -53,6 +53,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     providers,
     session: {
       strategy: "jwt",
+      maxAge: 3600,
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
@@ -64,6 +65,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         }
         return session;
       },
+    },
+    pages: {
+      signIn: "/",
     },
   });
 }

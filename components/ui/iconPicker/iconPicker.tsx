@@ -24,7 +24,7 @@ const IconPicker = ({ className, label, onChange }: IProps) => {
     "pizza",
     "juice",
     "coffee-cup",
-    "mushroom",
+    "shirt",
     "sprout",
     "ticket",
     "cake",

@@ -36,7 +36,7 @@ const Store = ({ className, href, title, content, icon, button }: IProps) => {
       <Tile href={href} className={styles.tile} borderRadius>
         {icon && <Icon size={"xs"} color={"energized"} {...icon} />}
         <div className={styles.wrapper}>
-          {title && <Title tag={"h6"} {...title} />}
+          {title && <Title className={styles.title} tag={"h6"} {...title} />}
           {content && <Content size={"xs"} color={"stable-700"} {...content} />}
         </div>
       </Tile>
