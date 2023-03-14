@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./checkout.module.scss";
 import classNames from "classnames/bind";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { Content, Card, Button } from "@ui";
+import { Content, Card, Button, Badge } from "@ui";
 import { Icon } from "@helper";
 import { ProductOverview, Payment } from "@components";
 import { supabase } from "@utils";
@@ -11,7 +11,7 @@ import {
   FindReferenceError,
   validateTransfer,
 } from "@solana/pay";
-import { PublicKey, Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { PublicKey, Keypair } from "@solana/web3.js";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import BigNumber from "bignumber.js";
@@ -183,6 +183,13 @@ const Checkout = ({ className, items, receiverAddress, store }: IProps) => {
         )}
       </div>
       <div>
+        <Badge
+          className={styles.badge}
+          text={"pay on devnet"}
+          color={"royal"}
+          textColor={"royal"}
+          lighten
+        />
         <div className={styles.subtotal}>
           <Content text={"Subtotal"} size={"xs"} color={"stable-700"} />
           <div className={styles.currency}>

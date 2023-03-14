@@ -27,16 +27,18 @@ export default function StorePage({
             { text: "Products", href: "/" },
           ]}
         />
-        <Snackbar
-          className={styles.snackbar}
-          title={{ text: "See public view" }}
-          content={{
-            text: "This is what a buyer will see",
-            size: "xs",
-          }}
-          icon={{ name: "elektro" }}
-          toggle={{ onChange: () => setPublicView(!publicView) }}
-        />
+        {admin && (
+          <Snackbar
+            className={styles.snackbar}
+            title={{ text: "See public view" }}
+            content={{
+              text: "This is what a buyer will see",
+              size: "xs",
+            }}
+            icon={{ name: "elektro" }}
+            toggle={{ onChange: () => setPublicView(!publicView) }}
+          />
+        )}
       </div>
       <Divider height={20} />
       <div className={styles.wrapper}>
