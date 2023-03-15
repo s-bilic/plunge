@@ -3,6 +3,8 @@
 
 NOTE: This project is currently on devnet, and to actually run it locally you will need to setup supabase with tables.
 
+www.plungestore.xyz
+
 Plunge is a decentralized web application solution built on Solana that allows retailers to create their own stores and manage their products. The solution is designed to be used as an in-real-life payment checkout method for customers who want to pay using Solana. The solution is focused on offering a seamless and secure payment experience for customers while providing retailers with an easy-to-use platform to manage their stores.
 
 ### Features
