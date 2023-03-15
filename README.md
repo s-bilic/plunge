@@ -1,4 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Plunge - The solana retail solution
+
+Plunge is a decentralized web application solution built on Solana that allows retailers to create their own stores and manage their products. The solution is designed to be used as an in-real-life payment checkout method for customers who want to pay using Solana. The solution is focused on offering a seamless and secure payment experience for customers while providing retailers with an easy-to-use platform to manage their stores.
+
+### Features
+
+Plunge offers several features for retailers to create and manage their stores. These features include:
+
+- **Multiple stores**: Retailers can create and manage multiple stores on the Plunge platform, each with its own set of products.
+- **Product management**: Retailers can add products to their stores with a name, price, and icon. They can also manage the product quantity and add new products as needed.
+- **Checkout**: Retailers can add products to the checkout for customers to purchase.
+- **Store views**: Retailers can switch between the store owner (admin) view and public view using a toggle.
+- **Analytics**: Plunge provides analytics for recent transactions, daily sales, and total revenue.
+- **Transaction tracking**: When a payment is made, the order ID of the purchase is trackable on-chain.
+- **Test checkout**: Retailers can test out checkout QR codes immediately to ensure they are working correctly.
+
+### Checkout methods
+
+**Store-checkout** ✅
+
+When a customer wants to pay for a product, the retailer will select the product in the Plunge application, and a Solana-pay QR code will pop up for the customer to scan. The customer can then pay the amount using Solana, and the retailer will receive payment confirmation. Once payment is confirmed, the customer can leave the store.
+
+**Self-checkout** ⏳
+
+One of the options offers a self-checkout method for customers who prefer to select and pay for their products themselves. In this method, customers can use the Plunge application to select the products they want to purchase, and a Solana-pay QR code will appear that accepts Solana payments. Once payment is confirmed, the customer will receive a receipt in their wallet in the form of a compressed NFT, which can be used as evidence to leave the store.
+
+**Online-checkout** ⏳
+
+In addition to its offline and self-checkout options, Plunge also offers an online checkout solution that allows retailers to easily turn their store into a webshop. Plunge's online checkout option is designed to be user-friendly and intuitive, making it easy for retailers to set up and manage their online store.
+
+### Tech-stack
+
+- **NextJS**
+- **Supabase**
+- **SCSS**
+
+
+### Resources
+
+gitbook: https://plunge.gitbook.io/plunge/
+
+
+### Application flow
+
+
+![store-checkout-flow-final](https://user-images.githubusercontent.com/24295554/225170565-67b3e546-a781-48ab-a24b-7d89c1c6abd1.png)
 
 ## Getting Started
 
