@@ -4,6 +4,10 @@
   position: relative;
   width: 100%;
 
+  @media (min-width: 350px) {
+    width: 128px
+  }
+
   @include small {
     width: 128px;
   }

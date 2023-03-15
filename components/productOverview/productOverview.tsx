@@ -33,7 +33,14 @@ const ProductOverview = ({
       <div className={styles.product}>
         {icon && <Icon className={styles.icon} size={"xs"} {...icon} />}
         <div className={styles.wrapper}>
-          {title && <Content size={"xxs"} emphasize {...title} />}
+          {title && (
+            <Content
+              className={styles.title}
+              size={"xxs"}
+              emphasize
+              {...title}
+            />
+          )}
           <div className={styles.currency}>
             {content && (
               <Content size={"xs"} color={"dark"} emphasize {...content} />

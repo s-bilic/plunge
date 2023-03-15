@@ -21,10 +21,12 @@
 .iconCurrency {
   display: flex;
   align-items: center;
-  // justify-content: center;
-  // background-color: rgba(var(--color-light), 1);
-  // border-radius: 100%;
-  // width: 24px;
-  // height: 24px;
   margin-left: var(--spacing-xs);
+}
+
+.title {
+  overflow: hidden;
+  max-width: 14ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -28,7 +28,12 @@ const Breadcrumbs = ({ className, items }: IProps) => {
             />
           </Link>
           {index !== items?.length - 1 && (
-            <Icon name={"arrow-right"} size={"xxxs"} {...item} />
+            <Icon
+              className={styles.icon}
+              name={"arrow-right"}
+              size={"xxxs"}
+              {...item}
+            />
           )}
         </React.Fragment>
       ))}
