@@ -40,13 +40,26 @@ In addition to its offline and self-checkout options, Plunge also offers an onli
 
 gitbook: https://plunge.gitbook.io/plunge/
 
-
 ### Application flow
-
 
 ![store-checkout-flow-final](https://user-images.githubusercontent.com/24295554/225170565-67b3e546-a781-48ab-a24b-7d89c1c6abd1.png)
 
 ## Getting Started
+
+### .env
+
+- Next Auth
+- Supabase keys
+
+NEXTAUTH_URL=*
+
+NEXTAUTH_SECRET=*
+
+NEXT_PUBLIC_SUPABASE_URL=*
+
+NEXT_PUBLIC_SUPABASE_KEY=*
+
+### Next.js
 
 First, run the development server:
 
